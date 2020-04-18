@@ -18,6 +18,11 @@ export const router= new Router({
                path:"/home",
                name:"home",
                component: () => import("../views/HomePage")
+             },{
+               path:"/craftdetails/:uuid",
+               name:"craftdetails",
+               component: () => import("../views/crafts/craftdetails"),
+               props:true
              }
         ]
     },
