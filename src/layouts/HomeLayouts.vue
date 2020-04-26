@@ -24,8 +24,8 @@
                             <base-dropdown>
                                 <BaseButton slot="title-container" type="secondary" class=" btn-sm dropdown-toggle">
                                 </BaseButton>
-                                <a class="dropdown-item" href="#">Login</a>
-                                <a class="dropdown-item" href="#">Register</a>
+                                <a class="dropdown-item" href="/login">Login</a>
+                                <a class="dropdown-item" href="/register">Register</a>
                                 <a class="dropdown-divider"></a>
                                 <a class="dropdown-item" href="#">Profile</a>
                                 <a class="dropdown-item" href="#">Dashboard</a>

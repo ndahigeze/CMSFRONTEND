@@ -6,7 +6,7 @@
     <div class="scrollbar-inner" ref="sidebarScrollArea">
       <div class="sidenav-header d-flex align-items-center">
         <a class="navbar-brand" href="#">
-          <img :src="logo" class="navbar-brand-img" alt="Sidebar logo">
+          <h1>cms</h1>
         </a>
         <div class="ml-auto">
           <!-- Sidenav toggler -->
@@ -60,8 +60,8 @@ export default {
     },
     logo: {
       type: String,
-      default: 'https://demos.creative-tim.com/vue-argon-dashboard-pro/img/brand/green.png',
-      description: 'Sidebar app logo'
+      default: '',
+      description: 'CMS'
     },
     backgroundColor: {
       type: String,

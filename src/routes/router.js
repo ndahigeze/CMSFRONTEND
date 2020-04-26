@@ -23,7 +23,18 @@ export const router= new Router({
                name:"craftdetails",
                component: () => import("../views/crafts/craftdetails"),
                props:true
+             },
+             {
+               path:"/login",
+               name:"login",
+               component: () => import("../views/auth/login")
+             },
+             {
+               path:"/register",
+               name:"register",
+               component: () => import("../views/auth/register")
              }
+
         ]
     },
     {
@@ -35,12 +46,19 @@ export const router= new Router({
           ]
     },
 
-     {
+    {
         path: '/',
         redirect: "dashboard",
         component: DashboardLayout,
         children: [
+          {
+                path: "artistdashboard",
+                name: "Artistdashboard",
+                component: () => import("../views/crafts/ArtistDashboard")
 
+
+          }
+         
         ]
      }
   ],

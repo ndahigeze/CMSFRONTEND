@@ -18,12 +18,17 @@ import Vue from 'vue';
 import DashboardPlugin from './plugins/dashboard-plugin';
 import App from './App.vue';
 import {store} from './store/appStore'
-
+import VueSweetalert2 from 'vue-sweetalert2';
+import {
+  alert
+} from "./util/alertUtils";
+Vue.prototype.$alert = alert
+Vue.use(VueSweetalert2);
 // router setup
 import {router} from './routes/router';
 // plugin setup
 Vue.use(DashboardPlugin);
-
+Vue.use(alert)
 /* eslint-disable no-new */
 new Vue({
    router,
