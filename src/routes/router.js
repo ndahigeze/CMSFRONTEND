@@ -3,6 +3,9 @@ import Router from 'vue-router';
 import HomeLayout from '../layouts/HomeLayouts';
 import DashboardLayout from "../layouts/DashboardLayout";
 import AuthLayout from "../layouts/AuthLayout";
+import {
+  guards
+} from "../routerGuards";
 
 Vue.use(Router);
 
@@ -51,12 +54,31 @@ export const router= new Router({
         redirect: "dashboard",
         component: DashboardLayout,
         children: [
-          {
+         
+          {    
+                beforeEnter:guards.isLoggedIn,
                 path: "artistdashboard",
                 name: "Artistdashboard",
-                component: () => import("../views/crafts/ArtistDashboard")
-
-
+                component: () => import("../views/dashboard/ArtistDashboard")
+          },
+          {  
+               beforeEnter: guards.isLoggedIn,
+               path: "CustomDashboard",
+               name: "CustomDashboard",
+               component: () => import("../views/dashboard/ArtistDashboard")
+          },
+          {
+            beforeEnter: guards.isLoggedIn,
+            path:"Crafts",
+            name:"Crafts",
+            component: () => import("../views/crafts/Crafts")
+          },
+          {
+            beforeEnter:guards.isLoggedIn,
+            path:"Craftsuserdetails/:uuid",
+            name:"Craft details",
+            component: () => import("../views/crafts/Details"),
+            props:true
           }
          
         ]

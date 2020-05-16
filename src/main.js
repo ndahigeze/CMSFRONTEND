@@ -15,21 +15,42 @@
 
 */
 import Vue from 'vue';
+import {
+  Table,
+  TableColumn,
+    Pagination,
+    Loading
+} from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Pagination)
+Vue.use(Loading.directive)
 import DashboardPlugin from './plugins/dashboard-plugin';
 import App from './App.vue';
 import {store} from './store/appStore'
 import VueSweetalert2 from 'vue-sweetalert2';
+import { DataTables } from "vue-data-tables";
 import {
   alert
 } from "./util/alertUtils";
+
+import vue_braintree from 'braintree-web';
+
+Vue.use(vue_braintree)
+
 Vue.prototype.$alert = alert
-Vue.use(VueSweetalert2);
+Vue.use(VueSweetalert2);  
 // router setup
 import {router} from './routes/router';
 // plugin setup
 Vue.use(DashboardPlugin);
 Vue.use(alert)
-/* eslint-disable no-new */
+Vue.use(DataTables)
+
+window.onload = () => {
+    store.dispatch("refreshToken")
+}
 new Vue({
    router,
   store,

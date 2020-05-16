@@ -5,7 +5,9 @@
     :class="{'bg-success navbar-dark': type === 'default'}"
   >
     <!-- Search form -->
-    
+    <div class="navbar-search form-inline mr-sm-3 ">
+      <H1 class="text-white">{{currentRouteName}}</H1>
+    </div>
     <!-- Navbar links -->
     <ul class="navbar-nav align-items-center ml-md-auto">
       <li class="nav-item d-xl-none">
@@ -93,6 +95,9 @@ export default {
     },
     name(){
         return this.$store.state.user.name
+    },
+    currentRouteName() {
+        return this.$route.name;
     }
   },
   data() {
