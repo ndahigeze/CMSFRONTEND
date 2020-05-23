@@ -35,10 +35,6 @@ import {
   alert
 } from "./util/alertUtils";
 
-import vue_braintree from 'braintree-web';
-
-Vue.use(vue_braintree)
-
 Vue.prototype.$alert = alert
 Vue.use(VueSweetalert2);  
 // router setup

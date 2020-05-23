@@ -106,7 +106,7 @@
                                          <i class="fas fa-braille"></i>
                                          Unpublish
                                          </a>
-                                       <a class="dropdown-item" href="#">
+                                       <a class="dropdown-item" href="#" @click="paymentModal.show=true">
                                          <i class="fas fa-ruble-sign"></i>
                                           Pay subscription
                                          </a>
@@ -253,6 +253,18 @@
         </Modal>
        </div>
 
+       <!-- payment modal -->
+       <Modal :show.sync='paymentModal.show' modalClasses="modal-dialog-centered ">
+           <template slot="header">
+                <h5 class="modal-title" id="exampleModalLabel">Pay Subscription</h5>
+            </template>
+            <div class="row">
+               <div class="col-md-12">
+                 <PaymentPage></PaymentPage>
+               </div>
+            </div>
+       </Modal>
+
 
 
 
@@ -270,6 +282,7 @@ import Crafts_mixins from "../../Mixins/craftMixins"
 import Modal from "../../components/Modal"
 import NewCraft from "./NewCraft"
 import Dropdown from "../../components/BaseDropdown"
+import PaymentPage from './payment_page'
 export default {
  name:"Crafts",
   mixins: [Crafts_mixins],
@@ -282,12 +295,16 @@ export default {
         Dropdown,
        Modal,
        NewCraft,
+       PaymentPage,
        
  },
  data(){
      return{
 
            modal:{
+            show:false,
+           },
+           paymentModal:{
             show:false,
            },
           paintings:[],
