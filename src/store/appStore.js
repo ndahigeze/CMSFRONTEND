@@ -16,7 +16,8 @@ Vue.use(Vuex)
   state: {
     user: {},
     backend_url:"http://localhost:8081",
-    isLoggedIn:false
+    isLoggedIn:false,
+
   },
   mutations: {
     setUser:(state,user) => {
@@ -24,7 +25,8 @@ Vue.use(Vuex)
     },
     setIsLoggedIn: (state,value) =>{
       state.isLoggedIn=value;
-    }
+    },
+   
   },
   getters:{
 
@@ -32,16 +34,21 @@ Vue.use(Vuex)
   actions:{
     refreshToken:(context)=>{
       axios({
-        method:"GET",
+        method:"PUT",
         url:context.state.backend_url+"/users/username/"+context.state.user.username
       }).then(res=>{
-       
-            context.commit("setUser", res.data.data)
-            context.commit("setIsLoggedIn", true)
+          if(res.data.code==200){
+             context.commit("setUser", res.data.data)
+             context.commit("setIsLoggedIn", true)
+          }else{
+             context.commit("setIsLoggedIn", false)
+          }
+
+           
       })
     },
     login: (context,logindata) => {
-      // console.log(logindata)
+    
        axios({
          method:"PUT",
          data:logindata,
@@ -49,6 +56,7 @@ Vue.use(Vuex)
 
        }).then(res=>{
         //  console.log(res)
+          // console.log(logindata)
          if(res.data.code==200){
             context.commit("setUser",res.data.data)
             context.commit("setIsLoggedIn",true)
@@ -58,6 +66,7 @@ Vue.use(Vuex)
                  router.push("CustomDashboard")
             }
          }else{
+            context.commit("setIsLoggedIn", false)
             alert.error("Wrong credentials");
          }
        })

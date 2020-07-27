@@ -75,6 +75,12 @@ export const router= new Router({
           },
           {
             beforeEnter:guards.isLoggedIn,
+            path:"orders",
+            name:"orders",
+            component:()=> import("../views/orders/craftOrders")
+          },
+          {
+            beforeEnter:guards.isLoggedIn,
             path:"Craftsuserdetails/:uuid",
             name:"Craft details",
             component: () => import("../views/crafts/Details"),

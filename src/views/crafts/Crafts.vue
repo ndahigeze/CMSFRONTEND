@@ -45,8 +45,12 @@
                                                 Published :
                                               </td>
                                               <td>
-                                                <strong v-if="published">YES</strong>
-                                                <strong v-if="!published" class="text-warning">No</strong>
+                                                <strong v-if="published">
+                                                   <Badge type="primary">YES</Badge>
+                                                </strong>
+                                                <strong v-if="!published" class="text-warning">
+                                                  <Badge type="danger">NO</Badge>
+                                                </strong>
                                               </td>
                                             </tr>
                                             <tr>
@@ -55,6 +59,14 @@
                                               </td>
                                               <td>
                                                   <strong>{{(craft.sold)? 'YES':'NO'}}</strong>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td class="th-header">
+                                                End of Subscription
+                                              </td>
+                                              <td>
+                                                <strong>{{craft.endOfSubscription}}</strong>
                                               </td>
                                             </tr>
                                            
@@ -98,20 +110,20 @@
                                        <BButton slot="title-container" type="secondary" class="dropdown-toggle btn btn-sm btn-outline-primary">
                                          Action
                                        </BButton>
-                                       <a class="dropdown-item" href="#">
-                                         <i class="fas fa-braille"></i>
+                                       <a class="dropdown-item" href="#" id="publish" @click="publish()">
+                                         <em class="fas fa-braille"></em>
                                          Publish
                                        </a>
-                                       <a class="dropdown-item" href="#">
-                                         <i class="fas fa-braille"></i>
+                                       <a class="dropdown-item" href="#" id="unpublish" @click="unpublish()">
+                                         <em class="fas fa-braille"></em>
                                          Unpublish
                                          </a>
                                        <a class="dropdown-item" href="#" @click="paymentModal.show=true">
-                                         <i class="fas fa-ruble-sign"></i>
+                                         <em class="fas fa-ruble-sign"></em>
                                           Pay subscription
                                          </a>
                                          <a class="dropdown-item" href="#">
-                                          <i class="fas fa-upload"></i>
+                                          <em class="fas fa-upload"></em>
                                             Upload Craft gallery
                                          </a>
                                     </Dropdown>
@@ -254,13 +266,21 @@
        </div>
 
        <!-- payment modal -->
-       <Modal :show.sync='paymentModal.show' modalClasses="modal-dialog-centered ">
+       <Modal :show.sync='paymentModal.show' modalClasses="modal-dialog-centered modal-dialog modal-lg ">
            <template slot="header">
-                <h5 class="modal-title" id="exampleModalLabel">Pay Subscription</h5>
+                 <div class="row">
+                   <div class="col-md-12">
+                     <h5 class="modal-title" id="exampleModalLabel">
+                      Pay Subscription
+                     </h5>
+                   </div> 
+                 </div>
+                <br>
+                
             </template>
             <div class="row">
                <div class="col-md-12">
-                 <PaymentPage></PaymentPage>
+                 <PaymentPage @reload="reload" :craft="craft.uuid" v-if="paymentModal.show"></PaymentPage>
                </div>
             </div>
        </Modal>
@@ -283,6 +303,7 @@ import Modal from "../../components/Modal"
 import NewCraft from "./NewCraft"
 import Dropdown from "../../components/BaseDropdown"
 import PaymentPage from './payment_page'
+import Badge from '../../components/Badge'
 export default {
  name:"Crafts",
   mixins: [Crafts_mixins],
@@ -296,6 +317,7 @@ export default {
        Modal,
        NewCraft,
        PaymentPage,
+       Badge
        
  },
  data(){
@@ -367,17 +389,64 @@ export default {
      }
  },
  methods:{
+     publish:function(){
+      axios({
+        method:"GET",
+        url:this.$store.state.backend_url+"/crafts/publish/publish/"+this.craft.uuid,
+        headers:{
+               'username':this.$store.state.user.username
+        }
+      }).then(res=>{
+        if(res.data.code==200){
+            this.$alert.success("Craft is published successfuly")
+            var evt={
+                  'uuid':this.craft.uuid
+              }
+            this.viewDetails(evt)
+        }else{
+             this.$alert.error(res.data.description);
+        }
+      })
+     },
+
+     unpublish:function(){
+        axios({
+          method:"GET",
+          url:this.$store.state.backend_url+"/crafts/publish/unpublish/"+this.craft.uuid,
+          headers:{
+            'username':this.$store.state.user.username
+          }
+        }).then(res=>{
+          if(res.data.code==200){
+              this.$alert.success("Craft is unpublished successfuly")
+              var evt={
+                  'uuid':this.craft.uuid
+              }
+              this.viewDetails(evt)
+          }else{
+              this.$alert.error(res.data.description);
+          }
+        })
+     },
+
      reload:function(){
        this.modal.show=false;
+       this.paymentModal.show=false
        this.viewArtifacts()
+       var evt={
+                  'uuid':this.craft.uuid
+              }
+       this.viewDetails(evt)
+      
      },
      viewDetails:function(evt){
        this.showdetails=true;
        this.viewArtifact(evt.uuid) 
      },
+    
      viewArtifacts:function(){
       axios({
-         methods:"GET",
+         method:"GET",
          url:this.$store.state.backend_url+"/crafts/user/"+this.$store.state.user.username,
        }).then(res=>{
            console.log(res)
@@ -391,7 +460,7 @@ export default {
      },
       viewArtifact:function(uuid){
        axios({
-         methods:"GET",
+         method:"GET",
          url:this.$store.state.backend_url+"/crafts/"+uuid,
        }).then(res=>{
            

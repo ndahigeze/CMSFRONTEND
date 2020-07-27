@@ -24,11 +24,11 @@
                             <base-dropdown>
                                 <BaseButton slot="title-container" type="secondary" class=" btn-sm dropdown-toggle">
                                 </BaseButton>
-                                <a class="dropdown-item" href="/login">Login</a>
-                                <a class="dropdown-item" href="/register">Register</a>
+                                <a class="dropdown-item" v-if="!isLoggedIn" href="/login">Login</a>
+                                <a class="dropdown-item" v-if="!isLoggedIn" href="/register">Register</a>
                                 <a class="dropdown-divider"></a>
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Dashboard</a>
+                                <a class="dropdown-item" href="#" v-if="isLoggedIn">Profile</a>
+                                <a class="dropdown-item" href="#" v-if="isLoggedIn">Dashboard</a>
                             </base-dropdown>
                         </li>
                     </ul>
@@ -62,11 +62,15 @@ export default {
     data(){
         return{
             showNavbar:true,
+    
         }
     },
     computed:{
         username(){
             return this.$store.state.user.username
+        },
+        isLoggedIn(){
+            return this.$store.state.isLoggedIn
         }
     }
 }

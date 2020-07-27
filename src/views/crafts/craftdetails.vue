@@ -2,15 +2,25 @@
   <div>
      <div class="row">
        <div class="col-md-6">
-          
+          <Card>
+              <div class=row>
+                  <div class="col-md-12">
+                      <Card>
+                                <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+craft.uuid" alt="Card image cap" height="600px">
+                      </Card>
+                  </div>
+              </div>
+          </Card>
        </div>
        <div class="col-md-6">
          <Card>
              <div class="row">
                  <div class="col-md-12">
                      <strong>
-                        <i class="fas fa-arrow-left"></i>
-                        <span> Back to crafts list</span>
+                        <a href="#!" @click="$router.push('/home')">
+                            <em class="fas fa-arrow-left"></em>
+                            <span> Back to crafts list</span>
+                        </a>
                      </strong> 
                  </div>
              </div>
@@ -21,25 +31,28 @@
              </div>
              <div class="row">
                  <div class="col-md-12">
-                     <div class="row">
-                         <div class="col md-12">
-                             <h3>
-                                 Description
-                             </h3>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-md-12">
-                             {{craft.comment}}
-                         </div>
-                     </div>
+                     <Card>
+                            <div class="row">
+                                <div class="col md-12">
+                                    <h3>
+                                        Description
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{craft.comment}}
+                                </div>
+                                <div class="col-md-12">
+                                    <h3 class="d-flex justify-content-end">{{craft.price}} RWF</h3>
+                                </div>
+                            </div>
+                            
+                     </Card>
+                    
                  </div>
              </div>
-             <div class="row">
-                <div class="col-md-12">
-                    <h3 class="d-flex justify-content-end">{{craft.price}} RWF</h3>
-                </div>
-             </div>
+            
              <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -50,54 +63,47 @@
                     <div class="row">
                         <div class="col md-6">
                             <Card>
-                                <img slot="image" class="card-img-top" :src="'http://localhost:8081/users/profile/'+ownerUuid" alt="Card image cap" height="200px" />
-                            </Card>
-                        </div>
-                        <div class="col md-6">
-                            <Card>
-                                <div class="row mb-2">{{craft.owner? craft.owner.name:"" }}</div>
-                                <div class="row mb-2">{{craft.owner? craft.owner.email:"" }}</div>
-                                <div class="row mb-2" >{{craft.owner? craft.owner.phone:"" }}</div>
-                                <div class="row mb-2">{{craft.owner? craft.owner.adress:"" }}</div>
-                               
+                                <div class="row mb-2"><span><strong>Name:   </strong> </span>{{craft.owner? craft.owner.name:"" }}</div>
+                                <div class="row mb-2"><span><strong>Email:</strong> </span>{{craft.owner? craft.owner.email:"" }}</div>
+                                <div class="row mb-2" ><span><strong>Phone:</strong> </span>{{craft.owner? craft.owner.phone:"" }}</div>
+                                <div class="row mb-2"><span><strong>Address:</strong></span>{{craft.owner? craft.owner.adress:"" }}</div>
                             </Card>
                         </div>
                     </div>
                 </div>
              </div>
              <div class="row">
-                 
                  <div class="col-md-12">
-                     <div class="row">
-                         <div class="col-md-12">
-                             <h4>Comment</h4>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-md-12">
-                           <textarea v-model="comment" class="form-control customstyle" rows="2"></textarea>
-                           <div class="d-flex justify-content-end">
-                             <BButton   size="sm" @click="submit()">Submit</BButton>
-                           </div> 
-                         </div>
-                     </div>
-                     <div class="row">
-                       <div class="col-md-12 mb-3" v-for="comment in comments" v-bind:key="comment.id">
-                       
-                            <div class="col-md-12 text-primary">
-                               {{comment.commentator.name}}
-                            </div>
-                            <div class="col-md-12">
-                               {{comment.comment}}
-                            </div>
-                        
-                       </div>
+                     <div v-if="isLoggedIn">
+                        <BButton v-if="user.email!= owner.email" @click="newOrdermodal.show=true">Send craft request</BButton>
                      </div>
                  </div>
              </div>
          </Card>
        </div>
      </div>
+
+         
+         <!-- payment modal -->
+       <Modal :show.sync='newOrdermodal.show' modalClasses="modal-dialog-centered modal-dialog modal-lg ">
+           <template slot="header">
+                 <div class="row">
+                   <div class="col-md-12">
+                     <h5 class="modal-title" id="exampleModalLabel">
+                          Send craft order
+                     </h5>
+                   </div> 
+                 </div>
+                <br>
+                
+            </template>
+            <div class="row">
+               <div class="col-md-12">
+                 <NewOrder @reload="reload" :uuid="craft.uuid" v-if="newOrdermodal.show"></NewOrder>
+               </div>
+            </div>
+       </Modal>
+
   </div>
 </template>
 
@@ -106,25 +112,51 @@
 import axios from "axios";
 import Card from "../../components/Cards/Card"
 import BButton from "../../components/BaseButton"
+import NewOrder from "./NewOrder"
+import Modal from "../../components/Modal"
 export default {
   name:"Craftdetails",
   props:['uuid'],
   components:{
       Card,
       BButton,
+      NewOrder,
+      Modal
   },
   data(){
      return{
         craft:{},
         ownerUuid:"",
+        owner:{},
         comments:[],
         comment:"",
+          
+        //   Create order modal data
+        newOrdermodal:{
+          show:false,
+        },
+
         
+     }
+  },
+  computed:{
+     isLoggedIn:function(){
+         return this.$store.state.isLoggedIn
+     },
+     user: function(){
+         
+         return this.$store.state.user
      }
   },
   methods:{
      
-     
+     reload:function(){
+         this.newOrdermodal.show=false;
+     },
+     triggernewRequest:function(){
+         console.log("test");
+        this.newOrdermodal=this.newOrdermodal.show?false:true
+     },
     submit:function(){
         var commentData={
           userUuid:"27f45793-56f0-4ad0-870c-1ac4ace1da09",
@@ -147,7 +179,7 @@ export default {
       }).then(res=>{
           if(res.data.code==200){
               this.comments=res.data.data.comments
-              console.log(res)
+            //   console.log(res)
           }
       })
     },
@@ -160,6 +192,7 @@ export default {
            
           if(res.data.code==200){
             this.craft=res.data.data.craft;
+            this.owner=this.craft.owner
             this.ownerUuid=this.craft.owner.uuid;
             // console.log(res)
             this.viewComment()
@@ -170,7 +203,8 @@ export default {
 
   created(){
     this.viewArtifacts()
-  }
+  },
+  
   
 }
 </script>

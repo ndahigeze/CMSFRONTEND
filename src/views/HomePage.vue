@@ -198,7 +198,7 @@ export default {
          url:this.$store.state.backend_url+"/crafts/published",
 
        }).then(res=>{
-           
+            console.log(res)
           if(res.data.code==200){
             this.crafts=res.data.data.crafts;
             this.displayableData=this.crafts
