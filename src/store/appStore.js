@@ -70,6 +70,12 @@ Vue.use(Vuex)
             alert.error("Wrong credentials");
          }
        })
-    }
+    },
+    logout: context => {
+      context.commit('setUser', null);
+      context.commit('setIsLoggedIn', false);
+      localStorage.clear();
+      router.push("/home");
+    },
   }
 })

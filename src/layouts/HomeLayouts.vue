@@ -24,11 +24,12 @@
                             <base-dropdown>
                                 <BaseButton slot="title-container" type="secondary" class=" btn-sm dropdown-toggle">
                                 </BaseButton>
-                                <a class="dropdown-item" v-if="!isLoggedIn" href="/login">Login</a>
-                                <a class="dropdown-item" v-if="!isLoggedIn" href="/register">Register</a>
-                                <a class="dropdown-divider"></a>
                                 <a class="dropdown-item" href="#" v-if="isLoggedIn">Profile</a>
                                 <a class="dropdown-item" href="#" v-if="isLoggedIn">Dashboard</a>
+                                 <a class="dropdown-divider"></a>
+                                <a class="dropdown-item" v-if="!isLoggedIn" href="/login">Login</a>
+                                <a class="dropdown-item" v-if="isLoggedIn" href="#" @click="logout">Logout</a>
+                                <a class="dropdown-item" v-if="!isLoggedIn" href="/register">Register</a>
                             </base-dropdown>
                         </li>
                     </ul>
@@ -71,6 +72,11 @@ export default {
         },
         isLoggedIn(){
             return this.$store.state.isLoggedIn
+        }
+    },
+    methods:{
+        logout:function(){
+              this.$store.dispatch("logout")
         }
     }
 }

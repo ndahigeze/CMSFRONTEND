@@ -22,10 +22,20 @@
                                      <div class="col-md-12">
                                          <div class="row">
                                              <div class="col-md-3" v-for="data in paginationData" v-bind:key="data.id">
-                                                 <a>
+                                                 <a href="" style="color:black">
                                                      <Card>
                                                          <div class="row">
+                                                             <div class="col-md-12">
+                                                                
+                                                             </div>
+                                                             <div class="col-md-12">
+                                                                     <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+data.uuid" alt="Card image cap" height="150px" width="150px">
+                                                             </div>
                                                              
+                                                             <div class="col-md-12 text-small" style="font-size:10px">
+                                                               <hr/>
+                                                                 <span style="font-style:bold">Sent at:</span> {{new Date(data.doneAt)}}
+                                                             </div>
                                                          </div>
                                                      </Card>
                                                  </a>
@@ -109,6 +119,7 @@ export default {
              this.isRejected=false;
              this.isAccepted=false;
              this.displayableData=this.pending
+             this.managePagination()
               if(this.displayableData.length>4){
                     this.paginationData=this.displayableData.slice(0,4)
                 }else{
@@ -116,9 +127,10 @@ export default {
                }
          }else if(category==="rejected"){
               this.isPending=false;
-             this.isRejected=true;
-             this.isAccepted=false;
+              this.isRejected=true;
+              this.isAccepted=false;
               this.displayableData=this.rejected
+              this.managePagination()
               if(this.displayableData.length>4){
                     this.paginationData=this.displayableData.slice(0,4)
                 }else{
@@ -128,7 +140,8 @@ export default {
              this.isPending=false;
              this.isRejected=false;
              this.isAccepted=true;
-               this.displayableData=this.accepted
+             this.displayableData=this.accepted
+             this.managePagination()
               if(this.displayableData.length>4){
                     this.paginationData=this.displayableData.slice(0,4)
                 }else{
