@@ -60,9 +60,10 @@
         <Card>
           <div class="row mb-3" >
             <div class="col-md-12">
-              <BButton size="sm"  outline type="default" @click="viewAll()">
+              <BButton size="sm" type="primary" @click="viewAll()">
                 ALL CRAFTS
               </BButton>
+              <!-- <BButton size="sm" v-if="isLoggedIn" type="primary" @click="newOrdermodal.show=true">Send craft request</BButton> -->
             </div>
           </div>
           <div class="row">
@@ -86,6 +87,28 @@
         </Card>
       </div>
      </div>
+
+
+      <!-- <Modal :show.sync='newOrdermodal.show' modalClasses="modal-dialog-centered modal-dialog modal-lg ">
+           <template slot="header">
+                 <div class="row">
+                   <div class="col-md-12">
+                     <h5 class="modal-title" id="exampleModalLabel">
+                          Send craft order
+                     </h5>
+                   </div> 
+                 </div>
+                <br>
+                
+            </template>
+            <div class="row">
+               <div class="col-md-12">
+                 <NewOrder @reload="reload" uuid="No Craft" v-if="newOrdermodal.show"></NewOrder>
+               </div>
+            </div>
+       </Modal> -->
+
+
   </div>
 </template>
 
@@ -96,6 +119,8 @@ import StatsCard from '../components/Cards/StatsCard';
 import Crafts_mixins from "../Mixins/craftMixins"
 import Pagination from "../components/BasePagination";
 import BButton from "../components/BaseButton"
+import NewOrder from "./crafts/NewOrder"
+import Modal from "../components/Modal"
 
 export default {
   name:"HomePage",
@@ -103,6 +128,8 @@ export default {
       Card,
       Pagination,
       BButton,
+      NewOrder,
+      Modal
   },
   data(){
       return{
@@ -124,11 +151,29 @@ export default {
           classes:"",
           paginationData:[],
           displayStart:0,
-          displayEnd:0
+          displayEnd:0,
+            
+        //   Create order modal data
+          newOrdermodal:{
+            show:false,
+          },
+
       }
   },
   mixins:[Crafts_mixins],
+  computed:{
+     isLoggedIn:function(){
+         return this.$store.state.isLoggedIn
+     },
+  },
   methods:{
+      reload:function(){
+         this.newOrdermodal.show=false;
+     },
+     triggernewRequest:function(){
+       
+        this.newOrdermodal=this.newOrdermodal.show?false:true
+     },
      viewPaintings:function(){
        this.isPainting=true
        this.isFigurines=false;

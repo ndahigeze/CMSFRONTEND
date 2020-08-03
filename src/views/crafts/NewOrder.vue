@@ -6,16 +6,16 @@
              <div class="row">
                
               
-               <div class="col-md-12">
+               <!-- <div class="col-md-12">
                   <base-input label="Request type">
                     <label for="yes">This craft</label>
                     <input type="radio" v-model="order.newCraft" value="False" name="orderNew" id="yes" style="margin:12px;width:25px" >
                     <label for="no">New craft</label>
                     <input type="radio" v-model="order.newCraft" value="True" name="orderNew" id="no" style="margin:12px;width:25px">
                   </base-input>
-               </div>
+               </div> -->
               
-               <div class="col-md-12" v-if="order.newCraft=='True'">
+               <div class="col-md-12">
                  <base-input name="Main picture" label="Picture of desired craft if available">
                   <input type="file" @change="onUploadFile($event)"  class="form-control form-control-alternative" name="mainPicture"/>
                  </base-input>
@@ -85,7 +85,7 @@ export default {
           formData.append('userUuid',this.order.userUuid)
           formData.append('craftUuid',this.order.craftUuid)
           formData.append('file',this.file[0])
-          formData.append("newCraft",this.order.newCraft)
+          formData.append("newCraft","True")
          
           axios({
               method:"POST",

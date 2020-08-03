@@ -76,6 +76,7 @@
                  <div class="col-md-12">
                      <div v-if="isLoggedIn">
                         <BButton v-if="user.email!= owner.email" @click="newOrdermodal.show=true">Send craft request</BButton>
+                        <BButton v-if="user.email!= owner.email" @click="payModal.show=true">Buy this craft</BButton>
                      </div>
                  </div>
              </div>
@@ -104,6 +105,28 @@
             </div>
        </Modal>
 
+
+       <!-- For buying this craft -->
+       <Modal :show.sync='payModal.show' modalClasses="modal-dialog-centered modal-dialog modal-sm ">
+           <template slot="header">
+                 <div class="row">
+                   <div class="col-md-12 " style="diplay:flex; justify-content: center;" >
+                     <h2 class="modal-title"  id="exampleModalLabel">
+                          BUY THIS CRAFT 
+                     </h2>
+                   </div> 
+                 </div>
+            </template>
+            <div class="row">
+               <div class="col-md-12">
+                 <PayCraft @reload="reload" :craft="craft.uuid" v-if="payModal.show"></PayCraft>
+               </div>
+            </div>
+       </Modal>
+
+       
+
+
   </div>
 </template>
 
@@ -114,6 +137,7 @@ import Card from "../../components/Cards/Card"
 import BButton from "../../components/BaseButton"
 import NewOrder from "./NewOrder"
 import Modal from "../../components/Modal"
+import PayCraft from "./PayCraft"
 export default {
   name:"Craftdetails",
   props:['uuid'],
@@ -121,7 +145,8 @@ export default {
       Card,
       BButton,
       NewOrder,
-      Modal
+      Modal,
+      PayCraft
   },
   data(){
      return{
@@ -135,6 +160,9 @@ export default {
         newOrdermodal:{
           show:false,
         },
+        payModal:{
+            show:false,
+        }
 
         
      }

@@ -1,9 +1,15 @@
 <template>
   <div>
      <div class="row">
+        
          <div class="col-md-12">
              <Card>
                  <div class="row">
+                     <div class="col-md-12">
+                        <h3>CUSTOMER CRAFTS ORDERS AND REQUESTS</h3> 
+                     </div>
+                 </div>
+                 <div class="row mt-2">
                        <div class="col-md-4 text-center" >
                            <div :class="isPending? 'shadow active-tab':'shadow'" data-category="pending" style="padding:20px" @click="changecategory">PENDING</div>
                        </div>
@@ -22,19 +28,26 @@
                                      <div class="col-md-12">
                                          <div class="row">
                                              <div class="col-md-3" v-for="data in paginationData" v-bind:key="data.id">
-                                                 <a href="" style="color:black">
+                                                 <a href="" >
                                                      <Card>
                                                          <div class="row">
                                                              <div class="col-md-12">
-                                                                
+                                                               <h3 style="color:black">CUSTOMER: <em style="color:#efebe9">{{data.customer.name}}</em></h3>
                                                              </div>
-                                                             <div class="col-md-12">
-                                                                     <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+data.uuid" alt="Card image cap" height="150px" width="150px">
+                                                             <div class="col-md-12" v-if="data.craftOrder">
+                                                                     <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+data.uuid" alt="Card image cap" height="200px" width="200px">
+                                                             </div>
+                                                             <div class="col-md-12" v-else>
+                                                                 <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+data.craftUuid" alt="Card image cap" height="150px" width="150px">
                                                              </div>
                                                              
                                                              <div class="col-md-12 text-small" style="font-size:10px">
-                                                               <hr/>
-                                                                 <span style="font-style:bold">Sent at:</span> {{new Date(data.doneAt)}}
+                                                              
+                                                                 <strong style="font-size:12px; color:black">Sent at:</strong> {{new Date(data.doneAt)}}
+                                                             </div>
+                                                             <div class="col-md-12 mt-2">
+                                                                 <span style="color:blacK;">Client comment</span><br>
+                                                                 <span class="mt-4" style="color:#757575">{{data.comment}}</span>
                                                              </div>
                                                          </div>
                                                      </Card>

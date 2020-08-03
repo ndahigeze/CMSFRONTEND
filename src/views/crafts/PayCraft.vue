@@ -1,109 +1,51 @@
 <template>
   <div>
-      <div id="testDropin">
-          
+           <div class="row" v-if="waiting">
+              <div class="col-md-4 offset-3">
+                  <h2 class=" text-info ">Loading...</h2>
+              </div>
+          </div>
+          <div class="row" v-if="!show_payment">
+              <div class="col-md-8 offset-2">
+                       <BButton @click="requestToken()">Load payment form</BButton>
+              </div>
+          </div>
          
-           <div class="row" v-if="show_category">
-              <div class="col-md-4">
-                  <card >
-                    <div class="row">
-                      <div class="col-md-12"><h3>Lower Price</h3><hr/></div>
-                      <div class="col-md-12">
-                         1 MONTH SUBSCRIPTION
-                      </div>
-                      <div class="col-md-12 mt-2">
-                          <h2>RWF 1000</h2>
-                      </div>
-                       <div class="col-md-12">
-                        <button class="btn btn-block btn-primary"  @click="pickSubscription" :data-price="1000">Pay</button>
-                      </div>
-                    </div>
-                  </card>
-              </div>
-              <div class="col-md-4">
-                 <card>
-                   <div class="row">
-                     <div class="col-md-12"><h3>STANDARD PRICE</h3><hr/></div>
-                     <div class="col-md-12">
-                         2 MONTH SUBSCRIPTION
-                     </div>
-                     <div class="col-md-12 mt-2">
-                          <h2>RWF 2000</h2>
-                      </div>
-                      <div class="col-md-12">
-                        <button class="btn btn-block btn-primary"  @click="pickSubscription" :data-price="2000">Pay</button>
-                      </div>
-                   </div>
-                 </card>
-              </div>
-              <div class="col-md-4">
-                 <card>
-                   <div class="row">
-                      <div class="col-md-12"><h3 class="label label-primary">HIGHER PRICE</h3><hr/></div>
-                       <div class="col-md-12">
-                          3 MONTH SUBSCRIPTION
-                       </div>
-                       <div class="col-md-12 mt-2">
-                          <h2>RWF 3000</h2>
-                       </div>
-                       <div class="col-md-12">
-                        <button class="btn btn-block btn-primary" @click="pickSubscription" :data-price="3000">Pay</button>
-                       </div>
-                   </div>
-                 </card>
-              </div>
-
-           </div>
-           <div class="row" v-if="show_payment">
+          <div class="row" v-if="show_payment">
                   <div id="dropin-container" class="col-md-12 d-flex justify-content-center">
                      
                   </div>
-                  
                   <div class="col-md-12 d-flex justify-content-center">
                     <button id="submit-button" class="btn btn-primary" >Submit</button>
                   </div>
                   
            </div>
-          
-      </div>
   </div>
 </template>
-  
+
 <script>
 import axios from "axios";
 import VueBraintre from 'braintree-web'
 import Dropin from 'braintree-web-drop-in'
 import Card from "../../components/Cards/Card"
 import BButton from "../../components/BaseButton"
-
 export default {
-   props:['craft'],
+     props:['craft'],
    components:{
        Card,
        BButton,
       
    },
    data(){
-     return{
-       token:'',
-       instance:null,
-       show_category:true,
-       show_payment:false,
-       payment_amount:0,
-       waiting:true,
-
-     }
+       return{
+         show_payment:false,
+         token:{},
+         waiting:false,
+       }
    },
    methods:{
-      
-       pickSubscription:function(e){
-            console.log(e.target.dataset.price)
-            this.payment_amount=e.target.dataset.price;
-            this.show_category=false
-            this.show_payment=true
-            this.loadDroping()
-       },
-       loadDroping:function(){
+     loadDroping:function(){
+
           
            
             var craft=this.craft;
@@ -133,14 +75,15 @@ export default {
                                     "cardetailType": payload.details.cardType,
                                     "clientEmail":clientEmail,
                                     "userUuid":userUuid,
-                                 
+                                    "amount":amount
+                                   
                                 }
 
                                 // Write request to submit payment
                                 //console.log(nonce)
                                 axios({
                                   method:'POST',
-                                  url:backend_url+"/crafts/paysubcription",
+                                  url:backend_url+"/crafts/paycraft",
                                   data:nonce
                                 }).then(res=>{
                                   console.log(res)
@@ -156,10 +99,10 @@ export default {
                  })
                   
              })
+             this.waiting=false;
        },
-     
-     
-     requestToken:function(){
+    requestToken:function(){
+        this.waiting=true;
          
       axios({
          method:"GET",
@@ -167,17 +110,15 @@ export default {
        }).then(res=>{
            
           if(res.data.code==200){
-           this.token=res.data.data
-            this.loadDroping()
+               this.show_payment=true;
+               this.token=res.data.data
+               this.loadDroping()
           }
        })
       }
-   },
-   created(){
-       this.requestToken()
-       
-   }
+   },   
 }
+  
 </script>
 
 <style>
