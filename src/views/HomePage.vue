@@ -240,7 +240,7 @@ export default {
      viewArtifacts:function(){
        axios({
          methods:"GET",
-         url:this.$store.state.backend_url+"/crafts/published",
+         url:"http://localhost:8081/crafts/published",
 
        }).then(res=>{
             console.log(res)

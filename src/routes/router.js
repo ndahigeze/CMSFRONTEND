@@ -36,7 +36,13 @@ export const router= new Router({
                path:"/register",
                name:"register",
                component: () => import("../views/auth/register")
-             }
+             },
+             {
+               path:"/clientcraft",
+               name:"",
+               component: () => import("../views/crafts/clientCrafts")
+             },
+             
 
         ]
     },

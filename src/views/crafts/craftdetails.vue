@@ -76,7 +76,7 @@
                  <div class="col-md-12">
                      <div v-if="isLoggedIn">
                         <BButton v-if="user.email!= owner.email" @click="newOrdermodal.show=true">Send craft request</BButton>
-                        <BButton v-if="user.email!= owner.email" @click="payModal.show=true">Buy this craft</BButton>
+                        <BButton v-if="user.email!= owner.email && !craft.sold" @click="payModal.show=true">Buy this craft</BButton>
                      </div>
                  </div>
              </div>
@@ -180,6 +180,8 @@ export default {
      
      reload:function(){
          this.newOrdermodal.show=false;
+         this.payModal.show=false;
+         this.viewArtifacts();
      },
      triggernewRequest:function(){
          console.log("test");

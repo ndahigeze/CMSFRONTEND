@@ -54,6 +54,7 @@ export default {
             var backend_url=this.$store.state.backend_url
             var alert=this.$alert
             var amount=this.payment_amount
+            var parent=this;
            
             
              Dropin.create({
@@ -86,14 +87,17 @@ export default {
                                   url:backend_url+"/crafts/paycraft",
                                   data:nonce
                                 }).then(res=>{
-                                  console.log(res)
+                                  console.log(res.data)
                                   if(res.data.code==200){
                                          alert.success(res.data.description)
-                                         this.$emit('reload')
-                                        
+                                         parent.$emit('reload')
+                
                                   }else{
                                        alert.error(res.data.description)
                                   }
+                                }).catch(er=>{
+                                  console.log(er)
+                                   alert.error("Error occured try again")
                                 })
                     })
                  })

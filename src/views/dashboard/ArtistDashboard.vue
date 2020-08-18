@@ -2,7 +2,6 @@
   <div>
      <div class="row">
       
-      
          <Card>
            
          </Card>
