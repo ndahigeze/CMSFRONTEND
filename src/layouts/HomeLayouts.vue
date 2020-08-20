@@ -26,18 +26,49 @@
                                  <a  style="color:white" href="/clientcraft">MY CRAFTS</a>
                             </li>
                             <li class="nav-item mr-5" style="color:white" v-if="isLoggedIn">
-                                  <a  style="color:white" href="#">MY REQUESTS</a>
+                                  <a  style="color:white" href="/my_requests">MY REQUESTS</a>
                             </li>
-                            <base-dropdown tag="li" title="Settings" titleClasses="nav-item" menuClass="titleClasses">
-                                <BaseButton slot="title-container" type="secondary" class=" btn-sm btn-secondary dropdown-toggle">
-                                </BaseButton>
-                                <a class="dropdown-item" href="#" v-if="isLoggedIn">Profile</a>
-                                <a class="dropdown-item" href="#" v-if="isLoggedIn">Dashboard</a>
-                                <a class="dropdown-divider"></a>
-                                <a class="dropdown-item" v-if="!isLoggedIn" href="/login">Login</a>
-                                <a class="dropdown-item" v-if="isLoggedIn" href="#" @click="logout">Logout</a>
-                                <a class="dropdown-item" v-if="!isLoggedIn" href="/register">Register</a>
-                            </base-dropdown>
+
+                                 <base-dropdown menu-on-rightclass="nav-item" tag="li" title-tag="a" title-classes="nav-link pr-0">
+                                    <a href="#" class="nav-link pr-0" @click.prevent slot="title-container">
+                                    <div class="media align-items-center">
+                                            <span class="avatar avatar-sm rounded-circle">
+                                                <h2 class="text-primary">{{username?username[0]:'DEV'[0]}}</h2>
+                                            </span>
+                                        <div class="media-body ml-2 d-none d-lg-block">
+                                        <span class="mb-0 text-sm  font-weight-bold">{{username? username:"Unknown"}}</span>
+                                        </div>
+                                    </div>
+                                    </a>
+
+                                    <template>
+
+                                        <div class="dropdown-header noti-title">
+                                            <h6 class="text-overflow m-0">Welcome!</h6>
+                                        </div>
+                                        <a href="#!" class="dropdown-item">
+                                            <i class="ni ni-single-02"></i>
+                                            <span>My profile</span>
+                                        </a>
+                                        <a class="dropdown-item" href="#" v-if="isLoggedIn">
+                                            Dashboard
+                                            </a>
+                                        <a class="dropdown-item" v-if="!isLoggedIn" href="/login">Login</a>
+                                        
+                                        <a class="dropdown-item" v-if="!isLoggedIn" href="/register">Register</a>
+                                        
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#!" class="dropdown-item"  v-if="isLoggedIn">
+                                            <i class="ni ni-user-run"></i>
+                                            <span>Logout</span>
+                                        </a>
+
+                                    </template>
+                                </base-dropdown>
+
+
+
+
                     </ul>
                 </NavBar>
           </div>

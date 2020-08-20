@@ -66,11 +66,9 @@
 
                                  </div>
                                  <div class="row">
-                                     <div class="col-md-12" v-if="order.orderStatus=='PENDING'">
-                                          <BButton  type="secondary" class="btn  btn-outline-secondary" @click="acceptRequest(order.uuid)"> Accept request</BButton>
-                                          <BButton  type="secondary" class="btn  btn-outline-warning" @click="rejectRequest(order.uuid)"> Reject request</BButton>
+                                     <div class="col-md-12" v-if="order.orderStatus!='REJECTED'">
+                                         <BButton  type="secondary" class="btn  btn-outline-secondary" @click="cancelRequest(order.uuid)"> Cancel request</BButton>
                                      </div>
-                                    
                                  </div>
                               </card>
                           </div>
@@ -277,7 +275,7 @@ export default {
      viewOrders:function(){
       axios({
          method:"GET",
-         url:this.$store.state.backend_url+"/orders/artist/"+this.$store.state.user.uuid,
+         url:this.$store.state.backend_url+"/orders/customer/"+this.$store.state.user.uuid,
        }).then(res=>{
           if(res.data.code==200){
             this.orders=res.data.data.orders;
@@ -327,11 +325,11 @@ export default {
        })
      },
 
-     acceptRequest:function(evt){
+     cancelRequest:function(evt){
          console.log(evt)
           this.$swal({
         title: "Are you sure?",
-        text: "You are about to Accept this request ",
+        text: "You are about to cancel this request ",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#33b5e5",
@@ -340,36 +338,11 @@ export default {
       }).then(result => {
          axios({
            method:"GET",
-           url:this.$store.state.backend_url+"/orders/changestatus/accept/"+evt
+           url:this.$store.state.backend_url+"/orders/changestatus/cancel/"+evt
          }).then(res=>{
               this.order=res.data.data
               this.viewOrders()
-               this.$alert.success("Order is Accepted successfuly")
-         }).catch(err=>{
-              console.log(err)
-         })
-      })
-        
-     },
-
-      rejectRequest:function(evt){
-         console.log(evt)
-          this.$swal({
-        title: "Are you sure?",
-        text: "You are about to reject this request ",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#33b5e5",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Confirm"
-      }).then(result => {
-         axios({
-           method:"GET",
-           url:this.$store.state.backend_url+"/orders/changestatus/reject/"+evt
-         }).then(res=>{
-              this.order=res.data.data
-              this.viewOrders()
-               this.$alert.success("Order is rejected successfuly")
+               this.$alert.success("Order is canceled successfuly")
          }).catch(err=>{
               console.log(err)
          })

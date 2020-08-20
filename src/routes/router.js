@@ -39,9 +39,14 @@ export const router= new Router({
              },
              {
                path:"/clientcraft",
-               name:"",
+               name:"clientcraft",
                component: () => import("../views/crafts/clientCrafts")
              },
+             {
+               path:"/my_requests",
+               name:"/my_requests",
+               component: () => import("../views/crafts/myRequests")
+             }
              
 
         ]
