@@ -103,7 +103,7 @@
                                                      <Card>
                                                          <div class="row">
                                                              <div class="col-md-12">
-                                                               <h3 style="color:black">ARTIST: <em style="color:#efebe9">{{data.artist.name}}</em></h3>
+                                                               <h3 style="color:black">CUSTOMER: <em style="color:#efebe9">{{data.customer.name}}</em></h3>
                                                              </div>
                                                              <div class="col-md-12" v-if="data.craftOrder">
                                                                      <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+data.uuid" alt="Card image cap" height="200px" width="200px">
@@ -268,7 +268,7 @@ export default {
                  }else if(order.orderStatus=="ACCEPTED"){
                       this.accepted.push(order);
                  }else if(order.orderStatus=="REJECTED"){
-                     this.accepted.push(order);
+                     this.rejected.push(order);
                  }else{
                      this.canceled.push(order)
                  }
@@ -277,7 +277,7 @@ export default {
      viewOrders:function(){
       axios({
          method:"GET",
-         url:this.$store.state.backend_url+"/orders/artist/"+this.$store.state.user.uuid,
+         url:this.$store.state.backend_url+"/payments/artist/"+this.$store.state.user.uuid,
        }).then(res=>{
           if(res.data.code==200){
             this.orders=res.data.data.orders;

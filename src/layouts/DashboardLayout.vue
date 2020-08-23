@@ -29,29 +29,13 @@
         </sidebar-item>
           <sidebar-item
           :link="{
-            name: 'Payments',
+            name: 'Craft payment',
             icon: 'ni ni-calendar-grid-58 text-red',
-            path: '/Payments'
+            path: '/craft_payments'
           }">
         </sidebar-item>
 
-
-        <sidebar-item :link="{
-                        name: 'Maps',
-                        icon: 'ni ni-map-big text-primary'
-                      }">
-          <sidebar-item :link="{ name: 'Google', path: '/maps/google' }"/>
-          <sidebar-item :link="{ name: 'Vector', path: '/maps/vector' }"/>
-        </sidebar-item>
-        
-
-        <sidebar-item
-          :link="{
-            name: 'Calendar',
-            icon: 'ni ni-calendar-grid-58 text-red',
-            path: '/calendar'
-          }">
-        </sidebar-item>
+       
       </template>
 
      

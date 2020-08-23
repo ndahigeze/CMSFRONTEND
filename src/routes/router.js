@@ -46,7 +46,8 @@ export const router= new Router({
                path:"/my_requests",
                name:"/my_requests",
                component: () => import("../views/crafts/myRequests")
-             }
+             },
+            
              
 
         ]
@@ -96,7 +97,13 @@ export const router= new Router({
             name:"Craft details",
             component: () => import("../views/crafts/Details"),
             props:true
-          }
+          },
+          {
+             beforeEnter: guards.isLoggedIn,
+             path: "craft_payments",
+             name: "CRAFT PAYMENT",
+             component:()=> import("../views/payments/craft_payments")
+           },
          
         ]
      }
