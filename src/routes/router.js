@@ -73,6 +73,12 @@ export const router= new Router({
                 name: "Artistdashboard",
                 component: () => import("../views/dashboard/ArtistDashboard")
           },
+          {    
+            beforeEnter:guards.isLoggedIn,
+            path: "admindashboard",
+            name: "Admindashboard",
+            component: () => import("../views/dashboard/AdminDashboard")
+          },
           {  
                beforeEnter: guards.isLoggedIn,
                path: "CustomDashboard",
@@ -104,6 +110,12 @@ export const router= new Router({
              name: "CRAFT PAYMENT",
              component:()=> import("../views/payments/craft_payments")
            },
+           {
+             beforeEnter:guards.isLoggedIn,
+             path:"subscriptions",
+             name:"SUBSCRIPTIONS",
+             component:()=>import("../views/payments/subscription_payments")
+           }
          
         ]
      }

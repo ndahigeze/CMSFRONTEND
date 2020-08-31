@@ -1,0 +1,7 @@
+2020.08.31 05:51:32 INFO  started: Metals version 0.9.3 in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND' for client vscode.
+2020.08.31 05:51:36 INFO  time: initialize in 4.32s
+2020.08.31 05:51:55 WARN  no build tool detected in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+Aug 31, 2020 10:44:26 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Aug 31, 2020 11:21:31 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification

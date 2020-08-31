@@ -62,8 +62,10 @@ Vue.use(Vuex)
             context.commit("setIsLoggedIn",true)
             if(res.data.data.role.title=="ARTIST"){
                   router.push("ArtistDashboard")
+            }else if(res.data.data.role.title=="ADMIN"){
+                 router.push("AdminDashboard")
             }else{
-                 router.push("CustomDashboard")
+              router.push("/home")
             }
          }else{
             context.commit("setIsLoggedIn", false)
@@ -72,10 +74,11 @@ Vue.use(Vuex)
        })
     },
     logout: context => {
-      context.commit('setUser', null);
-      context.commit('setIsLoggedIn', false);
       localStorage.clear();
       router.push("/home");
+      context.commit('setUser', {});
+      context.commit('setIsLoggedIn', false);
+      
     },
   }
 })

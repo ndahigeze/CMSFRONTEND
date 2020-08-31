@@ -14,6 +14,7 @@
     "@fullcalendar/interaction": "^4.0.2",
     "@fullcalendar/timegrid": "^4.0.1",
     "@fullcalendar/vue": "^4.0.2-beta",
+    "axios": "^0.20.0",
     "bootstrap": "4.3.1",
     "braintree-web": "^3.62.1",
     "chart.js": "^2.9.3",
