@@ -39,11 +39,16 @@
             </sidebar-item>
 
             <sidebar-item v-if="role=='ADMIN'" :link="{
-               name: 'SUBSCRIPTION PAYMENT',
+               name: 'PAYMENTS',
                icon: 'ni ni-calendar-grid-58 text-red',
                path: '/subscriptions'
              }">
             </sidebar-item>
+            <sidebar-item v-if="role=='ADMIN'" :link="{
+             name:'REPORTS',
+             icon:'ni ni-calendar-grid-58 text-red',
+             path:'/reports'
+            }" />
 
         </template>
 

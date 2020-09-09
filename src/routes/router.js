@@ -115,6 +115,12 @@ export const router= new Router({
              path:"subscriptions",
              name:"SUBSCRIPTIONS",
              component:()=>import("../views/payments/subscription_payments")
+           },
+           {
+             beforeEnter:guards.isLoggedIn,
+             path:"reports",
+             name:"REPORTS",
+             component: () => import("../views/reports/report_page")
            }
          
         ]
