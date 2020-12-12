@@ -86,27 +86,7 @@
                                     </div>
                                     <div class="row mt-4">
                                         <div class="col-md-12">
-                                            <Dropdown>
-                                                <BButton slot="title-container" type="secondary" class="dropdown-toggle btn btn-sm btn-outline-primary">
-                                                    Action
-                                                </BButton>
-                                                <a class="dropdown-item" href="#" id="publish" @click="publish()">
-                                                    <em class="fas fa-braille"></em>
-                                                    Publish
-                                                </a>
-                                                <a class="dropdown-item" href="#" id="unpublish" @click="unpublish()">
-                                                    <em class="fas fa-braille"></em>
-                                                    Unpublish
-                                                </a>
-                                                <a class="dropdown-item" href="#" @click="paymentModal.show=true">
-                                                    <em class="fas fa-ruble-sign"></em>
-                                                    Pay subscription
-                                                </a>
-                                                <a class="dropdown-item" href="#">
-                                                    <em class="fas fa-upload"></em>
-                                                    Upload Craft gallery
-                                                </a>
-                                            </Dropdown>
+
                                         </div>
                                     </div>
                                 </Card>

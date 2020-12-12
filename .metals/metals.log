@@ -9,3 +9,17 @@ INFO: Unsupported notification method: $/setTraceNotification
 2020.08.31 11:29:59 INFO  time: initialize in 1.62s
 2020.08.31 11:30:10 WARN  no build tool detected in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
 2020.08.31 11:49:52 INFO  shutting down Metals
+2020.10.24 14:38:24 INFO  started: Metals version 0.9.4 in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND' for client vscode.
+2020.10.24 14:38:28 INFO  time: initialize in 3.78s
+2020.10.24 14:38:38 WARN  no build tool detected in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+Oct 24, 2020 3:05:09 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+Oct 24, 2020 3:05:19 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+2020.11.11 19:45:02 INFO  started: Metals version 0.9.4 in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND' for client vscode.
+2020.11.11 19:45:05 INFO  time: initialize in 3.92s
+2020.11.11 19:45:21 WARN  no build tool detected in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2020.11.11 21:25:30 INFO  shutting down Metals
+2020.11.19 21:02:45 INFO  started: Metals version 0.9.4 in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND' for client vscode.
+2020.11.19 21:02:47 INFO  time: initialize in 1.99s
+2020.11.19 21:02:59 WARN  no build tool detected in workspace 'F:\IMPF\PW\PPROJECTS\CMS\CMSFRONTEND'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 

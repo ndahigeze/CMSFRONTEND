@@ -3,7 +3,7 @@
     <div class="main-content">
         <div>
 
-            <NavBar class="navbar navbar-default" v-model="showNavbar" type="primary" show="true">
+            <NavBar class="navbar navbar-default fixed-top" v-model="showNavbar" type="primary" show="true">
                 <a slot="brand" class="navbar-brand" href="/home">
                     <h1 style="color:white">CMS</h1>
                 </a>
@@ -26,43 +26,52 @@
                     <li class="nav-item mr-5" style="color:white" v-if="isLoggedIn">
                         <a style="color:white" href="/my_requests">MY REQUESTS</a>
                     </li>
-
-                    <base-dropdown menu-on-rightclass="nav-item" tag="li" title-tag="a" title-classes="nav-link pr-0">
-                        <a href="#" class="nav-link pr-0" @click.prevent slot="title-container">
-                            <div class="media align-items-center">
-                                <span class="avatar avatar-sm rounded-circle">
-                                    <h2 class="text-primary">{{username?username[0]:'DEV'[0]}}</h2>
-                                </span>
-                                <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">{{username? username:"Unknown"}}</span>
+                    <li class="nav-item mr-5" style="color:white">
+                        <base-dropdown menu-on-rightclass="nav-item" tag="li" title-tag="a" title-classes="nav-link pr-0">
+                            <a href="#" class="nav-link pr-0" @click.prevent slot="title-container">
+                                <div class="media align-items-center">
+                                    <span class="avatar avatar-sm rounded-circle">
+                                        <h2 class="text-primary">{{username?username[0]:'O'[0]}}</h2>
+                                    </span>
+                                    <div class="media-body ml-2 d-none d-lg-block">
+                                        <span class="mb-0 text-sm  font-weight-bold">{{username? username:""}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-
-                        <template>
-
-                            <div class="dropdown-header noti-title">
-                                <h6 class="text-overflow m-0">Welcome!</h6>
-                            </div>
-                            <a href="#!" class="dropdown-item">
-                                <i class="ni ni-single-02"></i>
-                                <span>My profile</span>
-                            </a>
-                            <a class="dropdown-item" href="#" v-if="isLoggedIn">
-                                Dashboard
-                            </a>
-                            <a class="dropdown-item" v-if="!isLoggedIn" href="/login">Login</a>
-
-                            <a class="dropdown-item" v-if="!isLoggedIn" href="/register">Register</a>
-
-                            <div class="dropdown-divider"></div>
-                            <a href="#!" @click="logout" class="dropdown-item" v-if="isLoggedIn">
-                                <i class="ni ni-user-run"></i>
-                                <span>Logout</span>
                             </a>
 
-                        </template>
-                    </base-dropdown>
+                            <template>
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome!</h6>
+                                </div>
+                                <a href="/profile" v-if="isLoggedIn" class="dropdown-item">
+                                    <i class="ni ni-single-02"></i>
+                                    <span>My profile</span>
+                                </a>
+                                <a class="dropdown-item" href="#" v-if="isLoggedIn">
+
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                                <a class="dropdown-item" v-if="!isLoggedIn" href="/login">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    <span>Login</span>
+
+                                </a>
+
+                                <a class="dropdown-item" v-if="!isLoggedIn" href="/register">
+                                    <i class="fas fa-registered"></i>
+                                    <span>Sign Up</span>
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+                                <a href="#!" @click="logout" class="dropdown-item" v-if="isLoggedIn">
+                                    <i class="ni ni-user-run"></i>
+                                    <span>Logout</span>
+                                </a>
+
+                            </template>
+                        </base-dropdown>
+                    </li>
 
                 </ul>
             </NavBar>

@@ -47,6 +47,11 @@ export const router= new Router({
                name:"/my_requests",
                component: () => import("../views/crafts/myRequests")
              },
+             {
+               path:"profile",
+               name:"profile",
+               component: () => import("../views/auth/profile")
+             }
             
              
 

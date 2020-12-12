@@ -12,10 +12,24 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-12 mt-3" v-if="payments">
-                    <div class="shadow"> test1</div>
+                    <div class="shadow">
+                        <div class="row">
+                            <div class="col-sd-3 p-3">
+                                <select class="form-control" v-model="paymenttype">
+                                    <option value="subscription">SUBSCRIPTION PAYMENTS</option>
+                                    <option value="crafts">CRAFTS PAYMENT</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 p-3">
+                                <a class="btn btn-primary" @click="download">Download Report</a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="col-md-12 mt-3" v-if="crafts">
                     <div class="shadow">test2</div>
+
                 </div>
             </div>
         </div>
@@ -41,6 +55,7 @@ export default {
             crafts: false,
             paymenttab: "active-tab",
             crafttab: "",
+            paymenttype: "subscription",
 
         }
     },
@@ -68,6 +83,20 @@ export default {
                 this.crafts = true
             }
         },
+        download: function () {
+            axios({
+                method: "GET",
+                url: this.$store.state.backend_url + "/payments/report/" + this.paymenttype
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 200) {
+
+                    this.payments = res.data.data.payments;
+                }
+            }).catch(err => {
+
+            })
+        }
 
     },
 

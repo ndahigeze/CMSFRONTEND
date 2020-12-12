@@ -15,7 +15,7 @@ Vue.use(Vuex)
    })],
   state: {
     user: {},
-    backend_url:"http://localhost:8081",
+    backend_url:"http://localhost:8082",
     isLoggedIn:false,
 
   },
@@ -71,6 +71,9 @@ Vue.use(Vuex)
             context.commit("setIsLoggedIn", false)
             alert.error("Wrong credentials");
          }
+       }).catch(res=>{
+         console.log(res)
+         alert.error("Wrong credentials");
        })
     },
     logout: context => {
