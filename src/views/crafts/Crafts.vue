@@ -386,15 +386,17 @@ export default {
             this.modal.show = false;
             this.paymentModal.show = false
             this.viewArtifacts()
-            var evt = {
-                'uuid': this.craft.uuid
-            }
-            this.viewDetails(evt)
+            // var evt = {
+            //     'uuid': this.craft.uuid
+            // }
+            // this.viewDetails(evt)
 
         },
         viewDetails: function (evt) {
-            this.showdetails = true;
-            this.viewArtifact(evt.uuid)
+            // this.showdetails = true;
+            // this.viewArtifact(evt.uuid)
+          this.$router.push({ name: 'CRAFT DETAILS', params: { uuid: evt.uuid } })
+            
         },
 
         viewArtifacts: function () {

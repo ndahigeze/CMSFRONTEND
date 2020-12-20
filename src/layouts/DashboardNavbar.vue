@@ -41,7 +41,11 @@
                 <div class="dropdown-header noti-title">
                     <h6 class="text-overflow m-0">Welcome!</h6>
                 </div>
-                <a href="#!" class="dropdown-item">
+                <a href="/home" class="dropdown-item">
+                    <i class="fa fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/profile" class="dropdown-item">
                     <i class="ni ni-single-02"></i>
                     <span>My profile</span>
                 </a>

@@ -75,7 +75,9 @@ export default {
         onUploadFile: function (evt) {
 
             this.file.push(evt.target.files[0]);
+            console.log(evt.target.files[0])
         },
+
         submit: function () {
             if (this.craft.price == 0) {
                 this.invalidForm = true;
@@ -93,6 +95,7 @@ export default {
                 formData.append('category', this.craft.category)
                 formData.append('price', this.craft.price)
                 formData.append('file', this.file[0])
+                
                 axios({
                     method: "POST",
                     url: this.$store.state.backend_url + "/crafts/create",
@@ -104,12 +107,14 @@ export default {
                 }).then(res => {
 
                     if (res.data.code == 200) {
-                        this.$emit("reload")
+                       
                         this.file = [];
                         this.craft.name = "";
                         this.craft.comment = "";
                         this.craft.category = "";
                         this.craft.price = 0;
+
+                         this.$emit("reload")
 
                     } else {
                         this.$alert.error(res.data.description)

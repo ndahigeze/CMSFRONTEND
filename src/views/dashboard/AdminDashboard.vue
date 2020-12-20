@@ -14,37 +14,39 @@
                         <div :class="isRequests? 'shadow active-tab text-center mt-2 row':'shadow text-center mt-2 row'" data-category="REQUESTS" style="padding:20px" @click="viewDetails">
                             <div class="col-md-12" data-category="REQUESTS" @click="viewDetails"><strong>REQUEST||ORDERS</strong></div>
                             <div class="col-md-12" data-category="REQUESTS" @click="viewDetails">
-                                <h1 class="mt-2" data-category="REQUESTS" @click="viewDetails">5</h1>
+                                <h1 class="mt-2" data-category="REQUESTS" @click="viewDetails">{{orderNumber}}</h1>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8" v-if="isCrafts">
                         <div class="text-center mt-2">
                             <div class="shadow" data-category="pending" style="padding:20px;">
                                 <div class="row">
                                     <div class="col-md-6 mt-5">
-                                        <stats-card title="PUBLISHED" type="gradient-orange" :sub-title="published.toString()" icon="ni ni-chart-pie-35" class="mb-4 mb-xl-0">
+                                        <stats-card title="PUBLISHED" type="gradient-orange" :sub-title="published.toString()"  class="mb-4 mb-xl-0">
 
                                             <template slot="footer">
-                                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>{{(published*100)/5}}</span>
+                                                <span class="text-success mr-2"><i class="fa fa-circle"></i>
+                                                   {{(craftsNumber==0)?'0':(published*100)/craftsNumber}}
+                                                 </span>
                                                 <span class="text-nowrap">Of all Crafts</span>
                                             </template>
                                         </stats-card>
                                     </div>
                                     <div class="col-md-6 mt-5">
-                                        <stats-card title="UNPUBLISHED" type="gradient-orange" :sub-title="unpublished.toString()" icon="ni ni-chart-pie-35" class="mb-4 mb-xl-0">
+                                        <stats-card title="UNPUBLISHED" type="gradient-orange" :sub-title="unpublished.toString()" class="mb-4 mb-xl-0">
 
                                             <template slot="footer">
-                                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>{{(unpublished*100)/5}}</span>
+                                                <span class="text-success mr-2"><i class="fa fa-circle"></i> {{(craftsNumber==0)?'0':(unpublished*100)/craftsNumber}}</span>
                                                 <span class="text-nowrap">Of all Crafts</span>
                                             </template>
                                         </stats-card>
                                     </div>
                                     <div class="col-md-6 mt-5 offset-3">
-                                        <stats-card title="SOLD" type="gradient-orange" :sub-title="sold.toString()" icon="ni ni-chart-pie-35" class="mb-4 mb-xl-0">
+                                        <stats-card title="SOLD" type="gradient-orange" :sub-title="sold.toString()"  class="mb-4 mb-xl-0">
 
                                             <template slot="footer">
-                                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>{{(sold*100)/5}}</span>
+                                                <span class="text-success mr-2"><i class="fa fa-circle"></i> {{(craftsNumber==0)?'0':(sold*100)/craftsNumber}}</span>
                                                 <span class="text-nowrap">Of all Crafts</span>
                                             </template>
                                         </stats-card>
@@ -53,6 +55,50 @@
                             </div>
                         </div>
                     </div>
+                     <div class="col-md-8" v-if="isRequests">
+                         <div class="text-center mt-2">
+                            <div class="shadow" data-category="pending" style="padding:20px;">
+                                <div class="row">
+                                    <div class="col-md-6 mt-5">
+                                        <stats-card title="PENDING" type="gradient-orange" :sub-title="pending.toString()" class="mb-4 mb-xl-0">
+
+                                            <template slot="footer">
+                                                <span class="text-success mr-2"><i class="fa fa-cicle"></i>{{(orderNumber==0)?'0':(pending*100)/orderNumber}}</span>
+                                                <span class="text-nowrap">Of all requests</span>
+                                            </template>
+                                        </stats-card>
+                                    </div>
+                                    <div class="col-md-6 mt-5">
+                                        <stats-card title="ACCEPTED" type="gradient-orange" :sub-title="accepted.toString()" class="mb-4 mb-xl-0">
+
+                                            <template slot="footer">
+                                                <span class="text-success mr-2"><i class="fa fa-cicle"></i>{{(orderNumber==0)?'0':(accepted*100)/orderNumber}}</span>
+                                                <span class="text-nowrap">Of all requests</span>
+                                            </template>
+                                        </stats-card>
+                                    </div>
+                                    <div class="col-md-6 mt-5">
+                                        <stats-card title="REJECTED" type="gradient-orange" :sub-title="rejected.toString()"  class="mb-4 mb-xl-0">
+
+                                            <template slot="footer">
+                                                <span class="text-success mr-2"><i class="fa fa-cicle"></i>{{(orderNumber==0)?'0':(rejected*100)/orderNumber}}</span>
+                                                <span class="text-nowrap">Of all requests</span>
+                                            </template>
+                                        </stats-card>
+                                    </div>
+                                    <div class="col-md-6 mt-5">
+                                        <stats-card title="CANCELED" type="gradient-orange" :sub-title="cancelled.toString()" icon="ni ni-chart-pie-35" class="mb-4 mb-xl-0">
+
+                                            <template slot="footer">
+                                                <span class="text-success mr-2"><i class="fa fa-cicle"></i>{{(orderNumber==0)?'0':(cancelled*100)/orderNumber}}</span>
+                                                <span class="text-nowrap">Of all requests</span>
+                                            </template>
+                                        </stats-card>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
                 </div>
             </Card>
         </div>
@@ -77,15 +123,18 @@ export default {
             ownerUuid: "",
             comments: [],
             comment: "",
-            isCrafts: false,
+            isCrafts: true,
             isRequests: false,
             published: 0,
             sold: 0,
             unpublished: 0,
+            pending:0,
             rejected: 0,
             accepted: 0,
             cancelled: 0,
-            craftsNumber: 0
+            craftsNumber: 0,
+            orderNumber:0,
+           
 
         }
     },
@@ -113,7 +162,10 @@ export default {
         viewArtifacts: function () {
             axios({
                 methods: "GET",
-                url: this.$store.state.backend_url + "/crafts/user/" + this.username,
+                headers:{
+                    username:"ADMIN"
+                },
+                url: this.$store.state.backend_url + "/crafts",
             }).then(res => {
                 if (res.data.code == 200) {
                     this.crafts = res.data.data.crafts
@@ -131,11 +183,41 @@ export default {
                 this.isRequests = true;
                 this.isCrafts = false;
             }
-        }
+        },
+        
+         viewOrders: function () {
+            axios({
+                method: "GET",
+                url: this.$store.state.backend_url + "/orders",
+            }).then(res => {
+                if (res.data.code == 200) {
+                    this.orders = res.data.data.orders;
+                    this.orderNumber=this.orders.length
+                    this.filter_orders()
+                    this.viewAll()
+
+                }
+            })
+        },
+         filter_orders: function () {
+           
+            this.orders.filter(order => {
+                if (order.orderStatus == "PENDING") {
+                    this.pending=this.pending+1;
+                } else if (order.orderStatus == "ACCEPTED") {
+                    this.accepted++;
+                } else if (order.orderStatus == "REJECTED") {
+                    this.rejected++;
+                } else {
+                    this.cancelled++;
+                }
+            })
+        },
     },
 
     created() {
         this.viewArtifacts()
+        this.viewOrders()
     }
 
 }

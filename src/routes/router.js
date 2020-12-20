@@ -48,8 +48,8 @@ export const router= new Router({
                component: () => import("../views/crafts/myRequests")
              },
              {
-               path:"profile",
-               name:"profile",
+               path:"publicprofile",
+               name:"publicprofile",
                component: () => import("../views/auth/profile")
              }
             
@@ -126,7 +126,19 @@ export const router= new Router({
              path:"reports",
              name:"REPORTS",
              component: () => import("../views/reports/report_page")
-           }
+           },
+           {
+            beforeEnter:guards.isLoggedIn,
+            path:"craft_details/:uuid",
+            name:"CRAFT DETAILS",
+            component: () => import("../views/crafts/Details"),
+            props:true
+           },
+           {
+            path:"profile",
+            name:"profile",
+            component: () => import("../views/auth/profile")
+          }
          
         ]
      }

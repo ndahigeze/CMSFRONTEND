@@ -5,7 +5,7 @@
 
             <NavBar class="navbar navbar-default fixed-top" v-model="showNavbar" type="primary" show="true">
                 <a slot="brand" class="navbar-brand" href="/home">
-                    <h1 style="color:white">CMS</h1>
+                    <h2 style="color:white"> ACSBP</h2>
                 </a>
                 <div class="navbar-collapse-header">
                     <div class="row">
@@ -43,11 +43,11 @@
                                 <div class="dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome!</h6>
                                 </div>
-                                <a href="/profile" v-if="isLoggedIn" class="dropdown-item">
+                                <!-- <a href="/profile" v-if="isLoggedIn" class="dropdown-item">
                                     <i class="ni ni-single-02"></i>
                                     <span>My profile</span>
-                                </a>
-                                <a class="dropdown-item" href="#" v-if="isLoggedIn">
+                                </a> -->
+                                <a class="dropdown-item" href="/ArtistDashboard" v-if="isLoggedIn">
 
                                     <i class="fas fa-tachometer-alt"></i>
                                     <span>Dashboard</span>

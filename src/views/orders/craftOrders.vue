@@ -274,7 +274,7 @@ export default {
         viewOrders: function () {
             axios({
                 method: "GET",
-                url: this.$store.state.backend_url + "/payments/artist/" + this.$store.state.user.uuid,
+                url: this.$store.state.backend_url + "/orders/artist/" + this.$store.state.user.uuid,
             }).then(res => {
                 if (res.data.code == 200) {
                     this.orders = res.data.data.orders;

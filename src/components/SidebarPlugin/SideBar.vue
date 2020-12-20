@@ -5,8 +5,9 @@
        :data="backgroundColor">
     <div class="scrollbar-inner" ref="sidebarScrollArea">
       <div class="sidenav-header d-flex align-items-center">
-        <a class="navbar-brand" href="#">
-          <h1>cms</h1>
+        <a class="navbar-brand" href="/home">
+            
+          <h3><i class="fa fa-home"></i> Home</h3>
         </a>
         <div class="ml-auto">
           <!-- Sidenav toggler -->

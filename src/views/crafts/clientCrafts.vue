@@ -1,201 +1,69 @@
 <template>
 <div>
-    <div class="row">
+    
+    <div class="row mt-5"></div>
+     <div class="row mt-5">
+         <div class="col-md-12">
+           <h1>MY CRAFTS</h1>
+         </div>
+     </div>
+     <div class="row mt-2">
         <div class="col-md-12">
-            <Card>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>MY CRAFTS</h1>
-                    </div>
-                </div>
-                <div class="row mt-2" v-if="showdetails">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <card>
-                                    <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+craft.uuid" alt="Card image cap" height="300px">
-                                </card>
-                            </div>
-                            <div class="col-md-9">
-                                <Card>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h2>DETAILS</h2>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table class="dtable">
-                                                <tr>
-                                                    <td class="td-header">
-                                                        <strong>Name: </strong>
-                                                    </td>
-                                                    <td>
-                                                        <strong>{{craft.name}}</strong>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td class="td-header">
-                                                        <strong>Sold: </strong>
-                                                    </td>
-                                                    <td>
-                                                        {{(craft.sold)? 'YES':'NO'}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td-header"><strong>Category: </strong></td>
-                                                    <td>
-                                                        {{craft.category}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td-header"><strong>Price: </strong></td>
-                                                    <td>{{craft.price}} RWF</td>
-                                                </tr>
-
-                                            </table>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="dtable">
-                                                <tr>
-                                                    <td class="td-header"> <strong>ARTIST NAME: </strong></td>
-                                                    <td>
-                                                        {{craft.owner.name}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td-header"><strong>ARTIST EMAIL: </strong></td>
-                                                    <td>{{craft.owner.email}} </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td-header"><strong>ARTIST PHONE: </strong> </td>
-                                                    <td>{{craft.owner.phone}} </td>
-                                                </tr>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <strong>Description:</strong>
-                                        </div>
-                                        <div class="col-md-12">
-                                            {{craft.comment}}
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-md-12">
-
-                                        </div>
-                                    </div>
-                                </Card>
-                            </div>
+          <div class="row">
+             <div class="col-md-12 mt-5" >
+                  <header class="masthead" id="header">
+                    <div class="overlay"></div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-8 col-md-10 mx-auto">
+                          <div class="site-heading">
+                            <!-- <h3 style="color:white;">In publishing and graphic design, Lorem ipsum is a placeholder text</h3> -->
+                            <div class="col-md-12 ">
+                              <base-input >
+                                  <select v-model="displayOption" class="form-control">
+                                      <option value="ALL">ALL</option>
+                                      <option value="PAINTING" selected>PAINTING</option>
+                                      <option value="STATUE">STATUE</option>
+                                      <option value="FIGURINE">FIGURINE</option>
+                                      <option value="JEWERY">JEWERY</option>
+                                  </select>
+                              </base-input>
+                          </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-12">
-                        <Tabs tabNavClasses="nav-fill flex-column flex-sm-row nav-wrapper" tabContentClasses="card shadow">
-                            <TabPane id="figurines">
-                                <span slot="title">
-                                    FIGURINES
-                                </span>
-
-                                <div class="card-body description">
-                                    <div class="row">
-                                        <div class="md-3 col-md-10 offset-1">
-                                            <input type="text" class="form-control form-control-alternative" v-model="filters[0].value" placeholder="Search . . ." />
-                                        </div>
-                                        <div class="mt-3 col-md-10 offset-1">
-                                            <datatable :data="figurines" :actionCol="actionCol" :selection="false" :titles="titles" :filters="filters" @viewdetails="viewDetails($event)" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </TabPane>
-                            <TabPane id="painting">
-                                <span slot="title">
-                                    PAINTING
-                                </span>
-
-                                <div class="card-body description">
-                                    <div class="md-3 col-md-10 offset-1">
-                                        <input type="text" class="form-control form-control-alternative" v-model="filters[0].value" placeholder="Search . . ." />
-                                    </div>
-                                    <div class="mt-3 col-md-10 offset-1">
-                                        <datatable :data="paintings" :actionCol="actionCol" :selection="false" :titles="titles" :filters="filters" @viewdetails="viewDetails($event)" />
-                                    </div>
-                                </div>
-                            </TabPane>
-                            <TabPane id="statues">
-                                <span slot="title">
-                                    STATUES
-                                </span>
-
-                                <div class="card-body description">
-                                    <div class="md-3 col-md-10 offset-1">
-                                        <input type="text" class="form-control form-control-alternative" v-model="filters[0].value" placeholder="Search . . ." />
-                                    </div>
-                                    <div class="mt-3 col-md-10 offset-1">
-                                        <datatable :data="statues" :actionCol="actionCol" :selection="false" :titles="titles" :filters="filters" @viewdetails="viewDetails($event)" />
-                                    </div>
-                                </div>
-                            </TabPane>
-                            <TabPane id="jeweries">
-                                <span slot="title">
-                                    JEWERIES
-                                </span>
-
-                                <div class="card-body description">
-                                    <div class="md-3 col-md-10 offset-1">
-                                        <input type="text" class="form-control form-control-alternative" v-model="filters[0].value" placeholder="Search . . ." />
-                                    </div>
-                                    <div class="mt-3 col-md-10 offset-1">
-                                        <datatable :data="jeweries" :actionCol="actionCol" :selection="false" :titles="titles" @viewdetails="viewDetails($event)" :filters="filters" />
-                                    </div>
-                                </div>
-                            </TabPane>
-                        </Tabs>
-                    </div>
-                </div>
-            </Card>
+                  </header>
+             </div>
+          </div>
         </div>
-    </div>
-
-    <div>
-        <Modal :show.sync="modal.show">
-            <template slot="header">
-                <h5 class="modal-title" id="exampleModalLabel">NEW CRAFT</h5>
-            </template>
-            <div class="row">
-                <div class="col-md-12">
-                    <NewCraft @reload="reload" />
-                </div>
+     </div>
+     <div class="row">
+      <div class="col-md-12">
+        <!-- <Card> -->
+         
+          <div class="row">
+            <div v-for="data in paginationData" v-bind:key="data.id" class="col-md-3">
+             <a :href="'craftdetails/'+data.uuid">
+              <card>
+                <img slot="image" class="card-img-top" :src="backEndUrl+'/crafts/profile/'+data.uuid" alt="Card image cap" height="300px">
+                
+                <h5 class="card-title">{{data.name}}</h5>
+                <p class="card-text">{{data.comment|displayLimit}} . . .</p>
+                <p class="card-text"><small class="text-muted">{{data.price}} <i class="fa fa-money-bill "></i></small></p>
+              </card>
+             </a>
             </div>
-            <template slot="footer">
-            </template>
-        </Modal>
-    </div>
-
-    <!-- payment modal -->
-    <Modal :show.sync='paymentModal.show' modalClasses="modal-dialog-centered modal-dialog modal-lg ">
-        <template slot="header">
-            <div class="row">
-                <div class="col-md-12">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Pay Subscription
-                    </h5>
-                </div>
-            </div>
-            <br>
-
-        </template>
-        <div class="row">
+          </div>
+          <div class="row">
             <div class="col-md-12">
-                <PaymentPage @reload="reload" :craft="craft.uuid" v-if="paymentModal.show"></PaymentPage>
+               <Pagination @input="managePaging" :page-count="pagination.pageCount" v-model="pagination.default"></Pagination>
             </div>
-        </div>
-    </Modal>
+          </div>
+        <!-- </Card> -->
+      </div>
+     </div>
+
 
 </div>
 </template>
@@ -213,6 +81,7 @@ import NewCraft from "./NewCraft"
 import Dropdown from "../../components/BaseDropdown"
 import PaymentPage from './payment_page'
 import Badge from '../../components/Badge'
+import Pagination from "../../components/BasePagination";
 export default {
     name: "Crafts",
     mixins: [Crafts_mixins],
@@ -226,130 +95,86 @@ export default {
         Modal,
         NewCraft,
         PaymentPage,
+        Pagination,
         Badge
 
     },
     data() {
         return {
-
-            modal: {
-                show: false,
-            },
-            paymentModal: {
-                show: false,
-            },
-            paintings: [],
-            figurines: [],
-            statues: [],
-            jeweries: [],
-            crafts: [],
-            craft: {},
-            showdetails: false,
+  
             ownerUuid: "",
-            published: true,
-            actionCol: {
-                label: "Perfom Actions",
-                props: {
-                    align: "center"
-                },
-                buttons: [{
-                    id: "viewDetails",
-                    label: "",
-                    classes: "btn btn-sm btn-primary",
-                    event: "viewdetails",
-                    icon: "fa fa-eye",
-                    tooltip: {
-                        placement: "top",
-                        title: "View Details"
-                    }
-                }]
-            },
-            titles: [{
-                    prop: "name",
-                    label: "Name"
-                },
-                {
-                    prop: 'price',
-                    label: 'Price'
-                },
-                {
-                    prop: 'status',
-                    label: 'Status'
-                },
-                {
-                    prop: 'uuid',
-                    label: 'Image',
-                    formatter: (row, column, cellValue) => {
-                        var t = "http://localhost:8081/crafts/profile/" + cellValue;
-                        return ( < img src = {
-                                t
-                            }
-                            width = "200px"
-                            height = "200" / > );
-                    }
-                }
+             pagination:{
+            default:1,
+            pageCount:0,
 
-            ],
-            filters: [{
-                prop: ["name", "phone", "email"],
-                value: ""
-            }]
+          },
+          isPainting:false,
+          isFigurines:false,
+          isJewery:false,
+          isStatue:false,
+          paintings:[],
+          figurines:[],
+          statues:[],
+          jeweries:[],
+          displayableData:[],
+          crafts:[],
+          classes:"",
+          paginationData:[],
+          displayStart:0,
+          displayEnd:0,
+            
+        //   Create order modal data
+          newOrdermodal:{
+            show:false,
+          },
+          displayOption:"ALL"
+         
+           
         }
     },
-    methods: {
-        publish: function () {
-            axios({
-                method: "GET",
-                url: this.$store.state.backend_url + "/crafts/publish/publish/" + this.craft.uuid,
-                headers: {
-                    'username': this.$store.state.user.username
-                }
-            }).then(res => {
-                if (res.data.code == 200) {
-                    this.$alert.success("Craft is published successfuly")
-                    var evt = {
-                        'uuid': this.craft.uuid
-                    }
-                    this.viewDetails(evt)
-                } else {
-                    this.$alert.error(res.data.description);
-                }
-            })
+    computed:{
+        isLoggedIn:function(){
+            return this.$store.state.isLoggedIn
+        },
+        backEndUrl:function(d){
+        return this.$store.state.backend_url
         },
 
-        unpublish: function () {
-            axios({
-                method: "GET",
-                url: this.$store.state.backend_url + "/crafts/publish/unpublish/" + this.craft.uuid,
-                headers: {
-                    'username': this.$store.state.user.username
-                }
-            }).then(res => {
-                if (res.data.code == 200) {
-                    this.$alert.success("Craft is unpublished successfuly")
-                    var evt = {
-                        'uuid': this.craft.uuid
-                    }
-                    this.viewDetails(evt)
-                } else {
-                    this.$alert.error(res.data.description);
-                }
-            })
-        },
-
-        reload: function () {
-            this.modal.show = false;
-            this.paymentModal.show = false
-            this.viewArtifacts()
-            var evt = {
-                'uuid': this.craft.uuid
+     },
+     filters:{
+            displayLimit:function(value){
+               return value.substring(0,100)
             }
-            this.viewDetails(evt)
-
-        },
+    },
+    watch: {
+       displayOption: {
+       handler: function  (newVal,oldVAL){
+         console.log(this.displayOption)
+           if(this.displayOption=="ALL"){
+            this.viewAll();
+          }else if(this.displayOption=="PAINTING"){
+            this.viewPaintings()
+          }else if(this.displayOption=="STATUE"){
+            this.viewStatues()
+          }else if(this.displayOption=="FIGURINE"){
+            this.viewFigurines()
+          }else if(this.displayOption=="JEWERY"){
+            this.viewJeweries()
+          }else{
+            this.viewAll();
+          }
+       },
+       deep:true      
+        
+      }
+    },
+    methods: {
+      
+    
         viewDetails: function (evt) {
-            this.showdetails = true;
-            this.viewArtifact(evt.uuid)
+            // this.showdetails = true;
+            // this.viewArtifact(evt.uuid)
+              this.$router.push({ name: 'craftdetails', params: { uuid: evt.uuid } })
         },
 
         viewArtifacts: function () {
@@ -360,32 +185,101 @@ export default {
                 console.log(res)
                 if (res.data.code == 200) {
                     this.crafts = res.data.data.crafts;
-
+                      this.displayableData=this.crafts
                     this.filterCrafts();
-
-                }
-            })
-        },
-        viewArtifact: function (uuid) {
-            axios({
-                method: "GET",
-                url: this.$store.state.backend_url + "/crafts/" + uuid,
-            }).then(res => {
-
-                if (res.data.code == 200) {
-                    this.craft = res.data.data.craft;
-                    this.ownerUuid = this.craft.owner.uuid;
-
-                    if (this.craft.publish && this.craft.paidSubscription) {
-                        this.published = true;
-                    } else {
-                        this.published = false;
+                    this.managePagination()
+                    if(this.displayableData.length>8){
+                      this.paginationData=this.displayableData.slice(0,8)
+                    }else{
+                      this.paginationData=this.displayableData
                     }
-
-                    console.log(res)
                 }
             })
         },
+       
+       viewPaintings:function(){
+       this.isPainting=true
+       this.isFigurines=false;
+       this.isJewery=false;
+       this.isStatue=false
+       this.displayableData=this.paintings
+       this.managePagination()
+        if(this.displayableData.length>8){
+               this.paginationData=this.displayableData.slice(0,8)
+            }else{
+              this.paginationData=this.displayableData
+         }
+     }, 
+     viewFigurines:function(){
+        this.isPainting=false
+        this.isFigurines=true;
+        this.isJewery=false;
+        this.isStatue=false
+        this.displayableData=this.figurines;
+        this.managePagination()
+         if(this.displayableData.length>8){
+               this.paginationData=this.displayableData.slice(0,8)
+            }else{
+              this.paginationData=this.displayableData
+          }
+     },
+     viewStatues:function(){
+        this.isPainting=false
+        this.isFigurines=false;
+        this.isJewery=false;
+        this.isStatue=true
+        this.displayableData=this.statues;
+        this.managePagination()
+         if(this.displayableData.length>8){
+               this.paginationData=this.displayableData.slice(0,8)
+            }else{
+              this.paginationData=this.displayableData
+          }
+
+     },
+     viewJeweries:function(){
+        this.isPainting=false
+        this.isFigurines=false;
+        this.isJewery=true;
+        this.isStatue=false;
+        this.displayableData=this.jeweries;
+        this.managePagination()
+         if(this.displayableData.length>8){
+               this.paginationData=this.displayableData.slice(0,8)
+            }else{
+              this.paginationData=this.displayableData
+         }
+     },
+
+     viewAll(){
+         this.displayableData=this.crafts;
+        this.managePagination()
+         if(this.displayableData.length>8){
+               this.paginationData=this.displayableData.slice(0,8)
+            }else{
+              this.paginationData=this.displayableData
+         }
+     },
+      managePagination:function(){
+        if(this.displayableData.length>8){
+          if(this.displayableData.length%8==0){
+              this.pagination.pageCount=this.displayableData.length/8
+          }else{
+            this.pagination.pageCount=(this.pagination.pageCount=this.displayableData.length/8)+1;
+            
+          } 
+        }else{
+          this.pagination.pageCount=1;
+        }
+       
+     },
+     managePaging:function(evt){
+        // console.log(evt);
+         this.displayEnd=evt*8
+         this.displayStart=this.displayEnd-7;
+         this.paginationData=this.displayableData.slice(this.displayStart-1,this.displayEnd);
+     }
+
     },
     created() {
         this.viewArtifacts();

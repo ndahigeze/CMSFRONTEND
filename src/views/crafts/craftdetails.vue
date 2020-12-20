@@ -1,13 +1,22 @@
 <template>
   <div>
-     <div class="row">
-       <div class="col-md-6">
+    <div class="row mt-5"></div>
+     <div class="row mt-5 ml-5">
+       <div class="col-md-5">
           <Card>
               <div class=row>
                   <div class="col-md-12">
-                      <Card>
-                                <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+craft.uuid" alt="Card image cap" height="600px">
-                      </Card>
+                                <img slot="image" class="card-img-top" :src="main_image_url" alt="Card image cap" height="450px">
+                  </div>
+                  <div class="col-md-12 mt-4">
+                     <div class="row">
+                        <div class="col-md-2 mb-4" v-for="image in craft_images" :key="image.id" v-on:click="viewImage(image)">
+                           <img slot="image" class="avatar avatar-xl rounded-circle" :src="backend_url+'/gallery/images/'+image.uuid" alt="Card image cap" height="200px">
+                        </div>
+                        <div class="col-md-12 mb-4" @click="viewImage('ORIGINAL')">
+                           <img slot="image" class="avatar avatar-xl rounded-circle" :src="backend_url+'/crafts/profile/'+craft.uuid" alt="Card image cap" height="200px">
+                        </div>
+                     </div>
                   </div>
               </div>
           </Card>
@@ -162,7 +171,9 @@ export default {
         },
         payModal:{
             show:false,
-        }
+        },
+        craft_images:[],
+        main_image_url:"", 
 
         
      }
@@ -174,6 +185,9 @@ export default {
      user: function(){
          
          return this.$store.state.user
+     },
+     backend_url:function(){
+       return this.$store.state.backend_url
      }
   },
   methods:{
@@ -184,7 +198,6 @@ export default {
          this.viewArtifacts();
      },
      triggernewRequest:function(){
-         console.log("test");
         this.newOrdermodal=this.newOrdermodal.show?false:true
      },
     submit:function(){
@@ -224,11 +237,35 @@ export default {
             this.craft=res.data.data.craft;
             this.owner=this.craft.owner
             this.ownerUuid=this.craft.owner.uuid;
+            this.main_image_url=this.$store.state.backend_url+'/crafts/profile/'+this.uuid
             // console.log(res)
+            this.viewImages()
             this.viewComment()
+
           }
        })
      },
+
+      viewImages:function(){
+              axios({
+                methods:"GET",
+                url:this.$store.state.backend_url+"/gallery/crafts/"+this.uuid,
+              }).then(res=>{
+                  if(res.data.code==200){
+                    this.craft_images=res.data.data.pictures;
+                    // console.log(res.data.data)
+                  }
+              })
+     },
+     viewImage:function(evt){
+       console.log(evt)
+       if(evt==="ORIGINAL"){
+        this.main_image_url=this.$store.state.backend_url+'/crafts/profile/'+this.craft.uuid
+       }else{
+          this.main_image_url=this.$store.state.backend_url+"/gallery/images/"+evt.uuid;
+       }
+      
+     }
   },
 
   created(){

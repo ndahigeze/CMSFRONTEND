@@ -6,7 +6,7 @@
             <sidebar-item v-if="role=='ARTIST'" :link="{
             name: 'Dashboards',
             icon: 'ni ni-shop text-primary',
-            path:'Artistdashboard'
+            path:'/Artistdashboard'
             }">
 
             </sidebar-item>

@@ -78,7 +78,8 @@ Vue.use(Vuex)
     },
     logout: context => {
       localStorage.clear();
-      router.push("/home");
+      // this.$router.push({ name: 'craftdetails', params: { uuid: evt.uuid } })
+      router.push({ name: '/home'});
       context.commit('setUser', {});
       context.commit('setIsLoggedIn', false);
       
