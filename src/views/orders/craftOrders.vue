@@ -15,10 +15,10 @@
                             <div class="col-md-3">
                                 <card>
                                     <div class="col-md-12" v-if="order.craftOrder">
-                                        <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+ order.uuid" alt="Card image cap" height="200px" width="200px">
+                                        <img slot="image" class="card-img-top" :src="backend_url+'/orders/orderpicture/'+ order.uuid" alt="Card image cap" height="200px" width="200px">
                                     </div>
                                     <div class="col-md-12" v-else>
-                                        <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+ order.craftUuid" alt="Card image cap" height="150px" width="150px">
+                                        <img slot="image" class="card-img-top" :src="backend_url+'/crafts/profile/'+ order.craftUuid" alt="Card image cap" height="150px" width="150px">
                                     </div>
                                 </card>
                             </div>
@@ -106,10 +106,10 @@
                                                                 <h3 style="color:black">CUSTOMER: <em style="color:#efebe9">{{data.customer.name}}</em></h3>
                                                             </div>
                                                             <div class="col-md-12" v-if="data.craftOrder">
-                                                                <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+data.uuid" alt="Card image cap" height="200px" width="200px">
+                                                                <img slot="image" class="card-img-top" :src="backend_url+'/orders/orderpicture/'+data.uuid" alt="Card image cap" height="200px" width="200px">
                                                             </div>
                                                             <div class="col-md-12" v-else>
-                                                                <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+data.craftUuid" alt="Card image cap" height="150px" width="150px">
+                                                                <img slot="image" class="card-img-top" :src="backend_url+'/crafts/profile/'+data.craftUuid" alt="Card image cap" height="150px" width="150px">
                                                             </div>
 
                                                             <div class="col-md-12 text-small" style="font-size:10px">
@@ -197,6 +197,11 @@ export default {
             order: {},
 
         }
+    },
+    computed:{
+     backend_url:function(){
+         return this.$store.state.backend_url;
+     }
     },
     methods: {
 

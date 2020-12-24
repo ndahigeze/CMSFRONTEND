@@ -15,21 +15,16 @@
                             <div class="col-md-3">
                                 <card>
                                     <div class="col-md-12" v-if="order.craftOrder">
-                                        <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+ order.uuid" alt="Card image cap" height="200px" width="200px">
+                                        <img slot="image" class="card-img-top" :src="backend_url+'/orders/orderpicture/'+ order.uuid" alt="Card image cap" height="200px" width="200px">
                                     </div>
                                     <div class="col-md-12" v-else>
-                                        <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+ order.craftUuid" alt="Card image cap" height="150px" width="150px">
+                                        <img slot="image" class="card-img-top" :src="backend_url+'/crafts/profile/'+ order.craftUuid" alt="Card image cap" height="150px" width="150px">
                                     </div>
                                 </card>
                             </div>
                             <div class="col-md-9">
                                 <card>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h2>DETAILS</h2>
-
-                                        </div>
-                                    </div>
+                                    
                                     <div class="row">
                                         <div class="col-md-6">
                                             <h3><strong>Order details</strong></h3>
@@ -104,10 +99,10 @@
                                                                 <h3 style="color:black">ARTIST: <em style="color:#efebe9">{{data.artist.name}}</em></h3>
                                                             </div>
                                                             <div class="col-md-12" v-if="data.craftOrder">
-                                                                <img slot="image" class="card-img-top" :src="'http://localhost:8081/orders/orderpicture/'+data.uuid" alt="Card image cap" height="200px" width="200px">
+                                                                <img slot="image" class="card-img-top" :src="backend_url+'/orders/orderpicture/'+data.uuid" alt="Card image cap" height="200px" width="200px">
                                                             </div>
                                                             <div class="col-md-12" v-else>
-                                                                <img slot="image" class="card-img-top" :src="'http://localhost:8081/crafts/profile/'+data.craftUuid" alt="Card image cap" height="150px" width="150px">
+                                                                <img slot="image" class="card-img-top" :src="backend_url+'/crafts/profile/'+data.craftUuid" alt="Card image cap" height="150px" width="150px">
                                                             </div>
 
                                                             <div class="col-md-12 text-small" style="font-size:10px">
@@ -119,7 +114,7 @@
                                                                 <span class="mt-4" style="color:#757575">{{data.comment}}</span>
                                                             </div>
                                                             <div class="col-md-12 mt-2">
-                                                                <a href="javascript:void(0)" class="btn btn-outline-primary" @click="orderDetails(data.uuid)">View Details</a>
+                                                                <a href="javascript:void(0)" class="btn btn-outline-primary" @click="viewDetails(data.uuid)">View Details</a>
                                                             </div>
                                                         </div>
                                                     </Card>
@@ -195,6 +190,11 @@ export default {
             order: {},
 
         }
+    },
+    computed:{
+      backend_url:function(){
+          return this.$store.state.backend_url;
+      }
     },
     methods: {
 

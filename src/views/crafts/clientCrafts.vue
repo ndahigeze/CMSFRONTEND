@@ -4,7 +4,7 @@
     <div class="row mt-5"></div>
      <div class="row mt-5">
          <div class="col-md-12">
-           <h1>MY CRAFTS</h1>
+           <h1 class="text text-primary">MY CRAFTS</h1>
          </div>
      </div>
      <div class="row mt-2">
