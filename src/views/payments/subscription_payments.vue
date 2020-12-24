@@ -11,7 +11,7 @@
                                 <input type="text" class="form-control form-control-alternative" v-model="filters[0].value" placeholder="Search . . ." />
                             </div>
                             <div class="mt-3 col-md-10 offset-1">
-                                <datatable :data="payments" :actionCol="actionCol" :selection="false" :titles="titles" :filters="filters" />
+                                <datatable :data="payments"  :selection="false" :titles="titles" :filters="filters" />
                             </div>
                         </div>
                     </div>
@@ -46,23 +46,7 @@ export default {
         return {
             payments: [],
             showdetails: false,
-            actionCol: {
-                label: "Perfom Actions",
-                props: {
-                    align: "center"
-                },
-                buttons: [{
-                    id: "viewDetails",
-                    label: "",
-                    classes: "btn btn-sm btn-primary",
-                    icon: "fa fa-eye",
-                    tooltip: {
-                        placement: "top",
-                        title: "View Details"
-                    }
-                }, ]
-
-            },
+           
             titles: [{
                     prop: "clientPhone",
                     label: "Client Phone"
@@ -75,8 +59,8 @@ export default {
                     prop: "doneAt",
                     label: "Payment date",
                     formatter: (row, column, cellValue) => {
-                        var date = new Date(cellValue).toString();
-                        return date;
+                        var date = new Date(cellValue);
+                        return  date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
                     }
                 },
                 {
