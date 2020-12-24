@@ -10,10 +10,10 @@
                   </div>
                   <div class="col-md-12 mt-4">
                      <div class="row">
-                        <div class="col-md-2 mb-4" v-for="image in craft_images" :key="image.id" v-on:click="viewImage(image)">
+                        <div class="col-md-2 mb-4" v-for="image in craft_images" :key="image.id" v-on:click="viewImage(image)" style="cursor:pointer" >
                            <img slot="image" class="avatar avatar-xl rounded-circle" :src="backend_url+'/gallery/images/'+image.uuid" alt="Card image cap" height="200px">
                         </div>
-                        <div class="col-md-12 mb-4" @click="viewImage('ORIGINAL')">
+                        <div class="col-md-12 mb-4" @click="viewImage('ORIGINAL')" style="cursor:pointer" >
                            <img slot="image" class="avatar avatar-xl rounded-circle" :src="backend_url+'/crafts/profile/'+craft.uuid" alt="Card image cap" height="200px">
                         </div>
                      </div>
@@ -35,7 +35,7 @@
              </div>
              <div class="row mt-4">
                  <div class="col-md-12">
-                   <h2>{{craft.name}} {{craft.category}}</h2>
+                   <h4 class="text text-muted text-lowercase">{{craft.name}} {{craft.category}}</h4>
                  </div>
              </div>
              <div class="row">
@@ -66,7 +66,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2>Artist</h2>
+                            <h4 class="text text-muted text-lowercase">Artist</h4>
                         </div>
                     </div>
                     <div class="row">
