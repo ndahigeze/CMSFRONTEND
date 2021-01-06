@@ -1,8 +1,8 @@
 <template>
 <div>
-    <div class="row">
+    <div class="row" style="height:500px;overflow:scroll">
         <div class="col-md-12">
-            <Card>
+            <Card >
                 <div class="row">
                     <div class="col-md-12">
                         <BaseInput :alternative="true" name='name' :required=true label="Name" v-model="craft.name" type="text" placeholder="Name" />
