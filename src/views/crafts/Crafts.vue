@@ -191,7 +191,7 @@
                                         <input type="text" class="form-control form-control-alternative" v-model="filters[0].value" placeholder />
                                     </div>
                                     <div class="mt-3 col-md-10 offset-1">
-                                        <datatable :data="figurines" :actionCol="actionCol" :selection="false" :titles="titles" @viewdetails="viewDetails($event)" :filters="filters" />
+                                        <datatable :data="jeweries" :actionCol="actionCol" :selection="false" :titles="titles" @viewdetails="viewDetails($event)" :filters="filters" />
                                     </div>
                                 </div>
                             </TabPane>

@@ -32,11 +32,14 @@
                                             <table class="dtable">
                                                 <tr>
                                                     <td class="td-header">Order status: </td>
-                                                    <td><strong>{{order.orderStatus}}</strong></td>
+                                                     <td class="text-info" v-if="order.orderStatus=='PENDING'"><strong>{{order.orderStatus}}</strong></td>
+                                                    <td class="text-success" v-if="order.orderStatus=='ACCEPTED'"><strong>{{order.orderStatus}}</strong></td>
+                                                    <td class="text-danger" v-if="order.orderStatus=='REJECTED'"><strong>{{order.orderStatus}}</strong></td>
+                                                    <td class="text-warning" v-if="order.orderStatus=='WARNING'"><strong>{{order.orderStatus}}</strong></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="td-header">Sent at: </td>
-                                                    <td><strong>{{new Date(order.doneAt)}}</strong></td>
+                                                    <td><strong>{{new Date(order.doneAt).toDateString()}}</strong></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -107,7 +110,14 @@
 
                                                             <div class="col-md-12 text-small" style="font-size:10px">
 
-                                                                <strong style="font-size:12px; color:black">Sent at:</strong> {{new Date(data.doneAt)}}
+                                                                <strong style="font-size:12px; color:black">Sent at:</strong> {{new Date(data.doneAt).toDateString()}}
+                                                            </div>
+                                                            <div class="col-md-12 text-right">
+                                                                <span v-if="data.orderStatus=='PENDING'" class="text-info"><i class="fa fa-spinner"></i>&nbsp;<em>pending</em></span>
+                                                                <span v-if="data.orderStatus=='ACCEPTED'" class="text-success"><i class="fa fa-check"></i>&nbsp; <em>accepted</em></span>
+                                                                <span v-if="data.orderStatus=='REJECTED'" class="text-danger"><i class="fa fa-times-circle"></i>&nbsp;<em>rejected</em></span>
+                                                                <span v-if="data.orderStatus=='CENCELLED'" class="text-warning"><i class="fa fa-times"></i>&nbsp;<em>cancelled</em></span>
+
                                                             </div>
                                                             <div class="col-md-12 mt-2">
                                                                 <span style="color:blacK;"><strong>Client comment</strong></span><br>
@@ -169,7 +179,7 @@ export default {
 
             orders: {},
             tabclass: "",
-            isPending: false,
+            isPending:false,
             isRejected: false,
             isAccepted: false,
             isCanceled: false,
