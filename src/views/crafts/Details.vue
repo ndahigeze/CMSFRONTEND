@@ -105,21 +105,25 @@
                                                 <BButton slot="title-container" type="secondary" class="dropdown-toggle btn btn-sm btn-outline-primary">
                                                     Action
                                                 </BButton>
-                                                <a v-if="!craft.publish" class="dropdown-item" href="#" id="publish" @click="publish()">
+                                                <a v-if="!craft.publish && userRole!='ADMIN'" class="dropdown-item" href="#" id="publish" @click="publish()">
                                                     <em class="fas fa-braille"></em>
                                                     Publish
                                                 </a>
-                                                <a v-if="craft.publish" class="dropdown-item" href="#" id="unpublish" @click="unpublish()">
+                                                <a v-if="craft.publish && userRole!='ADMIN'" class="dropdown-item" href="#" id="unpublish" @click="unpublish()">
                                                     <em class="fas fa-braille"></em>
                                                     Unpublish
                                                 </a>
-                                                <a class="dropdown-item" href="#" @click="paymentModal.show=true">
+                                                <a v-if="userRole!='ADMIN'" class="dropdown-item" href="#" @click="paymentModal.show=true">
                                                     <em class="fas fa-ruble-sign"></em>
                                                     Pay subscription
                                                 </a>
-                                                <a class="dropdown-item" href="#" @click="galleryModal.show=true">
+                                                <a v-if="userRole!='ADMIN'" class="dropdown-item" href="#" @click="galleryModal.show=true">
                                                     <em class="fas fa-upload"></em>
                                                     Upload Craft gallery
+                                                </a>
+                                                 <a class="dropdown-item text-danger" href="#" @click="deleteCraft">
+                                                    <em class="fas fa-trash"></em>
+                                                    Delete
                                                 </a>
                                             </Dropdown>
                                         </div>
@@ -270,12 +274,16 @@ export default {
         invalidForm: "false",  
         craft_images:[], 
         main_image_url:"", 
+        role:this.userRole
         
      }
   },
   computed: {
         root_path: function () {
             return this.$store.state.backend_url
+        },
+        userRole: function () {
+          return this.$store.state.user.role.title
         }
     },
   methods:{
@@ -421,7 +429,28 @@ export default {
           this.main_image_url=this.$store.state.backend_url+"/gallery/images/"+evt.uuid;
        }
       
-     }
+     },
+     deleteCraft:function(){
+         var localObject=this;
+        this.$alert.promptDelete("data",function(){
+            axios({
+                methods:"PUT",
+                url:localObject.$store.state.backend_url+"/crafts/delete/"+localObject.craft.uuid,
+              }).then(res=>{
+                  if(res.data.code==200){
+                    if(localObject.role="ADMIN"){ 
+                        localObject.$router.push({ name: 'ALL CRAFTS'})
+                    }else{
+                     localObject.$router.push({ name: 'crafts'})
+                    }
+                    localObject.$alert.success(res.data.description)
+                  }else{
+                       localObject.$alert.error(res.data.description)
+                  }
+              })
+        })
+     },
+  
 
   },
 

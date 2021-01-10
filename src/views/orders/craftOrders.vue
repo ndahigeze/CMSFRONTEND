@@ -116,7 +116,6 @@
                                                             </div>
 
                                                             <div class="col-md-12 text-small" style="font-size:10px">
-
                                                                 <strong style="font-size:12px; color:black">Sent at:</strong> {{new Date(data.doneAt).toDateString()}}
                                                             </div>
                                                              <div class="col-md-12 text-right">

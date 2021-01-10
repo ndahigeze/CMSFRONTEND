@@ -49,6 +49,11 @@
              icon:'ni ni-calendar-grid-58 text-red',
              path:'/reports'
             }" />
+            <sidebar-item v-if="role=='ADMIN'" :link="{
+                name:'CRAFTS',
+                icon:'fa fa-clone',
+                path:'admin_crafts'
+            }"/>
 
         </template>
 

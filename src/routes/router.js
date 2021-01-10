@@ -138,7 +138,12 @@ export const router= new Router({
             path:"profile",
             name:"profile",
             component: () => import("../views/auth/profile")
-          }
+           },
+           {
+            path:"admin_crafts",
+            name:"ALL CRAFTS",
+            component: () => import("../views/crafts/admin_crafts")
+           }
          
         ]
      }
